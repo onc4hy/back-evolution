@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">发呆小器</string>
+    <string name="title_meditation">发呆</string>
+    <string name="title_meditation_setting">发呆设置</string>
+    <string name="title_meditation_check">发呆回顾</string>
+    <string name="title_book">读经</string>
+    <string name="title_evolution">演化</string>
+    <string name="title_search">搜索</string>
+    <string name="title_profile">个人中心</string>
+    <string name="title_setting">设置</string>
+    <string name="title_tab_more">更多</string>
+    <string name="meditation_headline">冥想是种最好的内开发方法</string>
+    <string name="meditation_begin_music">开始音乐</string>
+    <string name="meditation_end_music">结束音乐</string>
+    <string name="meditation_music_loop_mode">音乐循环模式</string>
+    <string name="meditation_music_loop_mode_label">循环播放</string>
+    <string name="meditation_duration_time">发呆持续时间</string>
+    <string name="meditation_prepare_time">发呆预备时间</string>
+    <string name="meditation_btn_setting">发呆设置</string>
+    <string name="meditation_btn_start">开始发呆</string>
+    <string name="meditation_btn_stop">停止发呆</string>
+    <string name="meditation_btn_check">发呆回顾</string>
+    <string name="book_headline">读经使人明智</string>
+    <string name="book_btn_catalog">主目录</string>
+    <string name="book_btn_bookmark">书签</string>
+    <string name="book_btn_notes">读书笔记</string>
+    <string name="evolution_headline">时时察看你自己的演化历史</string>
+    <string name="evolution_remark">演化历史</string>
+    <string name="evolution_btn_plan">演化计划</string>
+    <string name="evolution_btn_design">设计执行</string>
+    <string name="evolution_btn_check">演化回顾</string>
+    <string name="evolution_btn_action">处理</string>
+    <string name="evolution_btn_aim">工具箱</string>
+    <string name="evolution_aim_sculping">时光刻刀</string>
+    <string name="evolution_aim_morning">晨型养成</string>
+    <string name="evolution_aim_aura">气场养成</string>
+    <string name="setting_headline">更多</string>
+
+    <string-array name="evolution_aims">
+        <item>时光刻刀</item>
+        <item>晨型养成</item>
+        <item>气场养成</item>
+    </string-array>
+
+</resources>

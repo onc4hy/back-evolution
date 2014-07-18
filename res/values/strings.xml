@@ -43,5 +43,7 @@
     <string name="lbl_ok">确认</string>
     <string name="lbl_cancel">取消</string>
     <string name="lbl_exit_confirm_info">确认退出吗?</string>
+    <string name="txt_about_title">关于</string>
+    <string name="txt_about_body">v 0.1\nauthor:onc4hy</string>
     
 </resources>

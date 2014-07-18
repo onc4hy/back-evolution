@@ -8,12 +8,11 @@ import android.view.KeyEvent;
 
 import com.houyalab.android.backevolution.R;
 
-public class SettingsActivity extends Activity {
+public class ProfileActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new FragmentSettings()).commit();
+		setContentView(R.layout.w_profile);
 	}
 
 }

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
@@ -105,28 +106,29 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		//SearchView searchView = (SearchView) menu.findItem(R.id.action_search); // maybe error
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		case R.id.action_profile:
-			Intent profileIntent = new Intent(this, AboutActivity.class);
+			Intent profileIntent = new Intent(this, ProfileActivity.class);
 			startActivity(profileIntent);
 			return true;
 		case R.id.action_signout:
-			Intent signoutIntent = new Intent(this, AboutActivity.class);
-			signoutIntent.putExtra("do","signout");
+			Intent signoutIntent = new Intent(this, ProfileActivity.class);
+			signoutIntent.putExtra("do", "signout");
 			startActivity(signoutIntent);
 			return true;
 		case R.id.action_setting:
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);
-			startActivity(settingsIntent);
+			startActivityForResult(settingsIntent, 0);
 			return true;
 		case R.id.action_about:
-			Intent aboutIntent = new Intent(this, AboutActivity.class);
-			startActivity(aboutIntent);
+			DialogAbout dlgAbout = new DialogAbout();
+			dlgAbout.show(getSupportFragmentManager(), "about_dialog");
 			return true;
 		case R.id.action_exit:
 			finish();

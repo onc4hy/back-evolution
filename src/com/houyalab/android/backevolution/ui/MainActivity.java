@@ -1,8 +1,9 @@
 package com.houyalab.android.backevolution.ui;
 
-import android.content.SharedPreferences;
+import java.lang.reflect.Field;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -10,12 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewConfiguration;
 
 import com.houyalab.android.backevolution.R;
-import com.houyalab.android.backevolution.R.id;
-import com.houyalab.android.backevolution.R.layout;
-import com.houyalab.android.backevolution.R.menu;
 import com.houyalab.android.backevolution.adapter.BackendPagerAdapter;
 import com.houyalab.android.backevolution.base.BaseActivity;
 
@@ -32,6 +30,12 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.w_main);
 
+		initActionBar();
+		initNavigatorDrawer();
+		getOverflowMenu();
+	}
+
+	private void initActionBar() {
 		mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -58,41 +62,44 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 					.setTabListener(this));
 		}
 		mActionBar.setSelectedNavigationItem(0);
+	}
 
-		// sharedPreferences
-        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		
+	private void initNavigatorDrawer() {
 		// DrawerLayout
 		/*
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
-
-			@Override
-			public void onDrawerClosed(View drawerView) {
-				super.onDrawerClosed(drawerView);
-			}
-
-			@Override
-			public void onDrawerOpened(View drawerView) {
-				super.onDrawerOpened(drawerView);
-			}
-
-			@Override
-			public void onDrawerStateChanged(int newState) {
-				super.onDrawerStateChanged(newState);
-			}
-
-		};
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
-
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		 * mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		 * mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+		 * R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
+		 * 
+		 * @Override public void onDrawerClosed(View drawerView) {
+		 * super.onDrawerClosed(drawerView); }
+		 * 
+		 * @Override public void onDrawerOpened(View drawerView) {
+		 * super.onDrawerOpened(drawerView); }
+		 * 
+		 * @Override public void onDrawerStateChanged(int newState) {
+		 * super.onDrawerStateChanged(newState); }
+		 * 
+		 * }; mDrawerLayout.post(new Runnable() {
+		 * 
+		 * @Override public void run() { mDrawerToggle.syncState(); } });
+		 * 
+		 * mDrawerLayout.setDrawerListener(mDrawerToggle);
 		 */
+	}
+
+	private void getOverflowMenu() {
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -103,11 +110,30 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_setting) {
+		switch(item.getItemId()) {
+		case R.id.action_profile:
+			Intent profileIntent = new Intent(this, AboutActivity.class);
+			startActivity(profileIntent);
 			return true;
+		case R.id.action_signout:
+			Intent signoutIntent = new Intent(this, AboutActivity.class);
+			signoutIntent.putExtra("do","signout");
+			startActivity(signoutIntent);
+			return true;
+		case R.id.action_setting:
+			Intent settingsIntent = new Intent(this, SettingsActivity.class);
+			startActivity(settingsIntent);
+			return true;
+		case R.id.action_about:
+			Intent aboutIntent = new Intent(this, AboutActivity.class);
+			startActivity(aboutIntent);
+			return true;
+		case R.id.action_exit:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

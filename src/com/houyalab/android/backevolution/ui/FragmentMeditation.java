@@ -1,6 +1,7 @@
 package com.houyalab.android.backevolution.ui;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +22,10 @@ public class FragmentMeditation extends BaseFragment implements
 	private MediaPlayer mPlayer;
 	private boolean mPlayerLoopMode;
 	private boolean mMeditationDoState;
-
+	private int mBeginMusicResId;
+	private int mEndMusicResId;
+	private SharedPreferences mSharedPrefs;
+	
 	public FragmentMeditation() {
 	}
 
@@ -46,6 +50,9 @@ public class FragmentMeditation extends BaseFragment implements
 		mBtnMeditationDo.setOnClickListener(this);
 		mBtnMeditationCheck.setOnClickListener(this);
 
+		mMeditationDoState = false;
+		mBtnMeditationDo.setText(R.string.meditation_btn_start);
+		
 		return rootView;
 	}
 
@@ -58,10 +65,20 @@ public class FragmentMeditation extends BaseFragment implements
 			dlgBuilder.show();
 		} else if (view.getId() == R.id.btn_meditation_do) {
 			try {
-				mPlayer = MediaPlayer.create(getActivity(), R.raw.zenbell);
-				mPlayerLoopMode = true;
-				mPlayer.setLooping(mPlayerLoopMode);
-				mPlayer.start();
+				mBeginMusicResId = mSharedPrefs.getInt("beginMusicResId", R.raw.zenbell);
+				if (mMeditationDoState == false) {
+					mPlayer = MediaPlayer.create(getActivity(), mBeginMusicResId);
+					mPlayerLoopMode = true;
+					mPlayer.setLooping(mPlayerLoopMode);
+					mPlayer.start();
+					mBtnMeditationDo.setText(R.string.meditation_btn_stop);
+				}else {
+					if (mPlayer.isPlaying()) {
+						mPlayer.stop();
+						mPlayer.release();
+					}
+					mBtnMeditationDo.setText(R.string.meditation_btn_start);
+				}
 			} catch (Exception e) {
 			}
 		} else if (view.getId() == R.id.btn_meditation_check) {

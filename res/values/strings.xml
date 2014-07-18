@@ -9,8 +9,11 @@
     <string name="title_evolution">演化</string>
     <string name="title_search">搜索</string>
     <string name="title_profile">个人中心</string>
-    <string name="title_setting">设置</string>
-    <string name="title_tab_more">更多</string>
+    <string name="title_signout">退出登录</string>
+    <string name="title_settings">设置</string>
+    <string name="title_about">关于...</string>
+    <string name="title_exit">退出</string>
+    <string name="title_more">更多</string>
     <string name="meditation_headline">冥想是种最好的内开发方法</string>
     <string name="meditation_begin_music">开始音乐</string>
     <string name="meditation_end_music">结束音乐</string>
@@ -37,11 +40,8 @@
     <string name="evolution_aim_morning">晨型养成</string>
     <string name="evolution_aim_aura">气场养成</string>
     <string name="setting_headline">更多</string>
-
-    <string-array name="evolution_aims">
-        <item>时光刻刀</item>
-        <item>晨型养成</item>
-        <item>气场养成</item>
-    </string-array>
-
+    <string name="lbl_ok">确认</string>
+    <string name="lbl_cancel">取消</string>
+    <string name="lbl_exit_confirm_info">确认退出吗?</string>
+    
 </resources>

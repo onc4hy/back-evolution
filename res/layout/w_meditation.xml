@@ -23,6 +23,7 @@
 
         <Button
             android:id="@+id/btn_meditation_setting"
+            style="@style/NavBarStyle"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_alignParentLeft="true"
@@ -30,6 +31,7 @@
 
         <Button
             android:id="@+id/btn_meditation_do"
+            style="@style/NavBarStyle"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
@@ -38,6 +40,7 @@
 
         <Button
             android:id="@+id/btn_meditation_check"
+            style="@style/NavBarStyle"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_alignParentRight="true"

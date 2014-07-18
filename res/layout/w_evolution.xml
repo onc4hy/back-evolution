@@ -8,7 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <LinearLayout
-        android:id="@+id/rg_evolution_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,7 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rg_evolution_navbar"
+        android:id="@+id/ll_evolution_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -40,6 +39,7 @@
 
         <Button
             android:id="@+id/btn_evolution_plan"
+            style="@style/NavBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -48,6 +48,7 @@
 
         <Button
             android:id="@+id/btn_evolution_check"
+            style="@style/NavBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_drawer"

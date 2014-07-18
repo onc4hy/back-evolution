@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="evolution_aims">
+        <item>时光刻刀</item>
+        <item>晨型养成</item>
+        <item>气场养成</item>
+    </string-array>
+
+    <string-array name="meditation_durations">
+        <item>5分钟</item>
+        <item>10分钟</item>
+        <item>15分钟</item>
+        <item>20分钟</item>
+        <item>30分钟</item>
+        <item>60分钟</item>
+        <item>不限</item>
+    </string-array>
+
+    <string-array name="meditation_duration_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="meditation_prepares">
+        <item>1秒钟</item>
+        <item>2秒钟</item>
+        <item>3秒钟</item>
+        <item>4秒钟</item>
+        <item>5秒钟</item>
+    </string-array>
+
+    <string-array name="meditation_prepare_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="meditation_begin_musics">
+        <item>zenbell.mp3</item>
+    </string-array>
+
+    <string-array name="meditation_begin_music_values">
+        <item>zenbell.mp3</item>
+    </string-array>
+
+    <string-array name="meditation_end_musics">
+        <item>gong.mp3</item>
+    </string-array>
+
+    <string-array name="meditation_end_music_values">
+        <item>gong.mp3</item>
+    </string-array>
+
+</resources>

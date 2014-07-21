@@ -16,7 +16,6 @@ import android.view.ViewConfiguration;
 
 import com.houyalab.android.backevolution.R;
 import com.houyalab.android.backevolution.adapter.BackendPagerAdapter;
-import com.houyalab.android.backevolution.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements ActionBar.TabListener {
 
@@ -117,18 +116,24 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 			Intent profileIntent = new Intent(this, ProfileActivity.class);
 			startActivity(profileIntent);
 			return true;
-		case R.id.action_signout:
+		case R.id.action_signin:
 			Intent signoutIntent = new Intent(this, ProfileActivity.class);
 			signoutIntent.putExtra("do", "signout");
 			startActivity(signoutIntent);
 			return true;
-		case R.id.action_setting:
+		case R.id.action_signup:
+			return true;
+			/*
+		case R.id.action_signout:
+			return true;
+			 */
+		case R.id.action_settings:
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);
 			startActivityForResult(settingsIntent, 0);
 			return true;
 		case R.id.action_about:
-			DialogAbout dlgAbout = new DialogAbout();
-			dlgAbout.show(getSupportFragmentManager(), "about_dialog");
+			DialogAbout dlgAbout = new DialogAbout(this);
+			dlgAbout.show();
 			return true;
 		case R.id.action_exit:
 			finish();

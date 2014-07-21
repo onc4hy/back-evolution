@@ -31,39 +31,41 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_evolution_navbar"
+        android:id="@+id/ll_evolution_footbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+		android:gravity="center_vertical"
+		android:background="@drawable/widget_bar_bg_n">
 
-        <Button
-            android:id="@+id/btn_evolution_plan"
-            style="@style/NavBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:drawableLeft="@drawable/ic_drawer"
-            android:text="@string/evolution_btn_plan" />
-
-        <Button
-            android:id="@+id/btn_evolution_check"
-            style="@style/NavBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_drawer"
-            android:text="@string/evolution_btn_check" />
-
-        <Spinner
-            android:id="@+id/spn_evolution_aims"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RadioButton
+            android:id="@+id/rb_evolution_plan"
+            style="@style/footbar_radio"
             android:layout_weight="1"
-            android:drawableRight="@drawable/ic_drawer"
-            android:entries="@array/evolution_aims"
-            android:prompt="@string/evolution_btn_aim" />
+            android:layout_width="wrap_content"
+            android:text="@string/evolution_btn_plan" />
+		<ImageView
+			style="@style/footbar_cutline"
+			android:src="@drawable/widget_bar_cut_off"/>
 
+        <RadioButton
+            android:id="@+id/rb_evolution_check"
+            style="@style/footbar_radio"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:text="@string/evolution_btn_check" />
+		<ImageView
+			style="@style/footbar_cutline"
+			android:src="@drawable/widget_bar_cut_off"/>
+
+        <RadioButton
+            android:id="@+id/rb_evolution_aims"
+            style="@style/footbar_radio"
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:drawableRight="@drawable/widget_right_icon"
+            android:text="@string/evolution_btn_aim" />
     </LinearLayout>
-    <!--  -->
 
 </RelativeLayout>

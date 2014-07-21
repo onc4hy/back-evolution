@@ -4,7 +4,7 @@
     tools:context="com.houyalab.android.backevolution.BookActivity" >
 
     <item
-        android:id="@+id/action_book_setting"
+        android:id="@+id/action_book_settings"
         android:orderInCategory="100"
         android:title="@string/title_settings"
         app:showAsAction="never"/>

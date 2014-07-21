@@ -11,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.houyalab.android.backevolution.R;
-import com.houyalab.android.backevolution.base.BaseFragment;
 
-public class FragmentMeditation extends BaseFragment implements
+public class FragmentMeditationIndex extends BaseFragment implements
 		View.OnClickListener {
 
 	private Button mBtnMeditationSetting;
@@ -26,7 +25,7 @@ public class FragmentMeditation extends BaseFragment implements
 	private int mEndMusicResId;
 	private SharedPreferences mSharedPrefs;
 	
-	public FragmentMeditation() {
+	public FragmentMeditationIndex() {
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class FragmentMeditation extends BaseFragment implements
 		View rootView = inflater.inflate(R.layout.w_meditation, container,
 				false);
 		mBtnMeditationSetting = (Button) rootView
-				.findViewById(R.id.btn_meditation_setting);
+				.findViewById(R.id.btn_meditation_settings);
 		mBtnMeditationDo = (Button) rootView
 				.findViewById(R.id.btn_meditation_do);
 		mBtnMeditationCheck = (Button) rootView
@@ -58,9 +57,9 @@ public class FragmentMeditation extends BaseFragment implements
 
 	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.btn_meditation_setting) {
+		if (view.getId() == R.id.btn_meditation_settings) {
 			AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(getActivity());
-			dlgBuilder.setTitle(R.string.title_meditation_setting);
+			dlgBuilder.setTitle(R.string.title_meditation_settings);
 			dlgBuilder.setMessage("a");
 			dlgBuilder.show();
 		} else if (view.getId() == R.id.btn_meditation_do) {

@@ -6,17 +6,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.houyalab.android.backevolution.R;
-import com.houyalab.android.backevolution.ui.FragmentBook;
-import com.houyalab.android.backevolution.ui.FragmentEvolution;
-import com.houyalab.android.backevolution.ui.FragmentMeditation;
+import com.houyalab.android.backevolution.ui.FragmentBookIndex;
+import com.houyalab.android.backevolution.ui.FragmentEvolutionIndex;
+import com.houyalab.android.backevolution.ui.FragmentMeditationIndex;
 
 public class BackendPagerAdapter extends FragmentPagerAdapter {
 
 	private FragmentManager mFM;
 	private Context mContext;
-	private FragmentMeditation mFragMeditation;
-	private FragmentBook mFragBook;
-	private FragmentEvolution mFragEvolution;
+	private FragmentMeditationIndex mFragMeditation;
+	private FragmentBookIndex mFragBook;
+	private FragmentEvolutionIndex mFragEvolution;
 
 	public BackendPagerAdapter(FragmentManager fm,Context ctx) {
 		super(fm);
@@ -32,13 +32,13 @@ public class BackendPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		if (mFragMeditation == null) {
-			mFragMeditation = new FragmentMeditation();
+			mFragMeditation = new FragmentMeditationIndex();
 		}
 		if (mFragBook == null) {
-			mFragBook = new FragmentBook();
+			mFragBook = new FragmentBookIndex();
 		}
 		if (mFragEvolution == null) {
-			mFragEvolution = new FragmentEvolution();
+			mFragEvolution = new FragmentEvolutionIndex();
 		}
 		switch (position) {
 		case 0:

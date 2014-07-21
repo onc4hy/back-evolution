@@ -3,12 +3,15 @@
 
     <string name="app_name">发呆小器</string>
     <string name="title_meditation">发呆</string>
-    <string name="title_meditation_setting">发呆设置</string>
+    <string name="title_meditation_settings">发呆设置</string>
     <string name="title_meditation_check">发呆回顾</string>
     <string name="title_book">读经</string>
     <string name="title_evolution">演化</string>
     <string name="title_search">搜索</string>
+    <string name="title_refresh">刷新</string>
     <string name="title_profile">个人中心</string>
+    <string name="title_signup">注册</string>
+    <string name="title_signin">登录</string>
     <string name="title_signout">退出登录</string>
     <string name="title_settings">设置</string>
     <string name="title_about">关于...</string>
@@ -21,14 +24,14 @@
     <string name="meditation_music_loop_mode_label">循环播放</string>
     <string name="meditation_duration_time">发呆持续时间</string>
     <string name="meditation_prepare_time">发呆预备时间</string>
-    <string name="meditation_btn_setting">发呆设置</string>
+    <string name="meditation_btn_settings">发呆设置</string>
     <string name="meditation_btn_start">开始发呆</string>
     <string name="meditation_btn_stop">停止发呆</string>
     <string name="meditation_btn_check">发呆回顾</string>
     <string name="book_headline">读经使人明智</string>
     <string name="book_btn_catalog">主目录</string>
     <string name="book_btn_bookmark">书签</string>
-    <string name="book_btn_notes">读书笔记</string>
+    <string name="book_btn_comments">读书笔记</string>
     <string name="evolution_headline">时时察看你自己的演化历史</string>
     <string name="evolution_remark">演化历史</string>
     <string name="evolution_btn_plan">演化计划</string>
@@ -38,8 +41,8 @@
     <string name="evolution_btn_aim">工具箱</string>
     <string name="evolution_aim_sculping">时光刻刀</string>
     <string name="evolution_aim_morning">晨型养成</string>
-    <string name="evolution_aim_aura">气场养成</string>
-    <string name="setting_headline">更多</string>
+    <string name="evolution_aim_aura">灵性修养</string>
+    <string name="settings_headline">更多</string>
     <string name="lbl_ok">确认</string>
     <string name="lbl_cancel">取消</string>
     <string name="lbl_exit_confirm_info">确认退出吗?</string>

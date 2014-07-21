@@ -3,8 +3,8 @@
 
     <string-array name="evolution_aims">
         <item>时光刻刀</item>
+        <item>灵性敏感针</item>
         <item>晨型养成</item>
-        <item>气场养成</item>
     </string-array>
 
     <string-array name="meditation_durations">
@@ -44,7 +44,7 @@
     </string-array>
 
     <string-array name="meditation_begin_musics">
-        <item>zenbell.mp3</item>
+        <item>禅铃</item>
     </string-array>
 
     <string-array name="meditation_begin_music_values">
@@ -52,11 +52,24 @@
     </string-array>
 
     <string-array name="meditation_end_musics">
-        <item>gong.mp3</item>
+        <item>锣声</item>
     </string-array>
 
     <string-array name="meditation_end_music_values">
         <item>gong.mp3</item>
     </string-array>
 
+    <string-array name="share_items">
+        <item>新浪微博</item>
+        <item>腾讯微博</item>
+        <item>截图分享</item>
+        <item>更多...</item>
+    </string-array>
+	
+    <string-array name="message_list_options">
+        <item>回复</item>
+        <item>转发</item>
+        <item>删除</item>
+    </string-array>
+	
 </resources>

@@ -40,7 +40,7 @@
         <item name="android:clickable">true</item>
     </style>
 	
-   	<style name="head_title">
+   	<style name="detail_head_title">
         <item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textSize">@dimen/text_size_19</item>
@@ -52,7 +52,7 @@
 		<item name="android:shadowRadius">1</item>
     </style>
 
-    <style name="cut_line">
+    <style name="detail_cut_line">
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:layout_height">2.0dip</item>
 		<item name="android:layout_marginTop">8.0dip</item>
@@ -60,6 +60,45 @@
 		<item name="android:layout_marginLeft">6.0dip</item>
 		<item name="android:layout_marginRight">6.0dip</item>
 		<item name="android:background">@drawable/line_bluegray</item>
+	</style>
+
+    <style name="tab_button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>        
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>  
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>  
+        <item name="android:background">@drawable/frame_button_bg</item>
+    </style>
+    
+    <style name="frame_button">
+        <item name="android:layout_width">fill_parent</item>
+   		<item name="android:layout_height">fill_parent</item>
+       	<item name="android:layout_weight">1</item>
+       	<item name="android:background">@drawable/frame_button_bg</item>
+       	<item name="android:textColor">@color/frame_button_text_nor</item>
+    </style>
+    
+    <style name="widget_listview">
+        <item name="android:layout_width">fill_parent</item>
+   		<item name="android:layout_height">fill_parent</item>
+       	<item name="android:layout_weight">1</item>      	
+       	<item name="android:listSelector">@drawable/listview_item_selector</item>
+       	<item name="android:divider">@drawable/listview_divider_line</item>
+       	<item name="android:dividerHeight">1.0dip</item>
+       	<item name="android:fadingEdge">none</item>
+       	<item name="android:scrollingCache">false</item>
+    </style>
+
+    <style name="loading_small" parent="@android:style/Widget.ProgressBar.Small">
+		<item name="android:indeterminateDrawable">@anim/loading</item>
+		<item name="android:layout_width">21dip</item> 
+		<item name="android:layout_height">21dip</item>
+		<item name="android:layout_gravity">center_vertical</item>
 	</style>
 	
 </resources>

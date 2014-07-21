@@ -44,7 +44,7 @@ implements View.OnClickListener {
 		View rootView = inflater.inflate(R.layout.w_book,container,false);
 		initBookCatalog();
 		initBookMarks();
-		initBookNotes();
+		initBookComments();
 		return rootView;
 	}
 
@@ -59,7 +59,7 @@ implements View.OnClickListener {
 	private void initBookMarks() {
 	}
 
-	private void initBookNotes() {
+	private void initBookComments() {
 	}
 
 	@Override

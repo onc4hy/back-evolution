@@ -32,6 +32,7 @@
     <string name="book_btn_catalog">主目录</string>
     <string name="book_btn_bookmark">书签</string>
     <string name="book_btn_comments">读书笔记</string>
+    <string name="book_volume_head_title">读书-详情内容</string>
     <string name="evolution_headline">时时察看你自己的演化历史</string>
     <string name="evolution_remark">演化历史</string>
     <string name="evolution_btn_plan">演化计划</string>

@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.widget.Toast;
 
 public class UIUtil {
 
@@ -33,5 +34,9 @@ public class UIUtil {
 		Intent intent = new Intent(context, FragmentBookVolumeDetail.class);
 		intent.putExtra("volume_id", volumeId);
 		context.startActivity(intent);
+	}
+	
+	public static void message(Context ctx,String text) {
+		Toast.makeText(ctx,text,Toast.LENGTH_SHORT).show();
 	}
 }

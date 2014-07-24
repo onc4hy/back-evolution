@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -30,6 +31,8 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.w_main);
 
+		PreferenceManager.setDefaultValues(getApplicationContext(),
+				R.xml.settings, false);
 		initActionBar();
 		initNavigatorDrawer();
 		getOverflowMenu();
@@ -105,7 +108,8 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		//SearchView searchView = (SearchView) menu.findItem(R.id.action_search); // maybe error
+		// SearchView searchView = (SearchView)
+		// menu.findItem(R.id.action_search); // maybe error
 		return true;
 	}
 
@@ -124,8 +128,7 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 		case R.id.action_signup:
 			return true;
 			/*
-		case R.id.action_signout:
-			return true;
+			 * case R.id.action_signout: return true;
 			 */
 		case R.id.action_settings:
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);

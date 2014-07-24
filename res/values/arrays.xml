@@ -6,8 +6,7 @@
         <item>灵性敏感针</item>
         <item>晨型养成</item>
     </string-array>
-
-    <string-array name="meditation_durations">
+    <string-array name="meditation_time_durations">
         <item>5分钟</item>
         <item>10分钟</item>
         <item>15分钟</item>
@@ -16,8 +15,7 @@
         <item>60分钟</item>
         <item>不限</item>
     </string-array>
-
-    <string-array name="meditation_duration_values">
+    <string-array name="meditation_time_duration_values">
         <item>5</item>
         <item>10</item>
         <item>15</item>
@@ -26,50 +24,44 @@
         <item>60</item>
         <item>0</item>
     </string-array>
-
-    <string-array name="meditation_prepares">
+    <string-array name="meditation_time_prepares">
         <item>1秒钟</item>
         <item>2秒钟</item>
         <item>3秒钟</item>
         <item>4秒钟</item>
         <item>5秒钟</item>
     </string-array>
-
-    <string-array name="meditation_prepare_values">
+    <string-array name="meditation_time_prepare_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
     </string-array>
-
-    <string-array name="meditation_begin_musics">
-        <item>禅铃</item>
+    <string-array name="meditation_music_begins">
+        <item>禅钵</item>
+        <item>如茶流动</item>
     </string-array>
-
-    <string-array name="meditation_begin_music_values">
-        <item>zenbell.mp3</item>
-    </string-array>
-
-    <string-array name="meditation_end_musics">
-        <item>锣声</item>
-    </string-array>
-
-    <string-array name="meditation_end_music_values">
+    <string-array name="meditation_music_begin_values">
+        <item>bowl.mp3</item>
         <item>gong.mp3</item>
     </string-array>
-
+    <string-array name="meditation_music_ends">
+        <item>锣</item>
+    </string-array>
+    <string-array name="meditation_music_end_values">
+        <item>gong.mp3</item>
+    </string-array>
     <string-array name="share_items">
         <item>新浪微博</item>
         <item>腾讯微博</item>
         <item>截图分享</item>
         <item>更多...</item>
     </string-array>
-	
     <string-array name="message_list_options">
         <item>回复</item>
         <item>转发</item>
         <item>删除</item>
     </string-array>
-	
+
 </resources>

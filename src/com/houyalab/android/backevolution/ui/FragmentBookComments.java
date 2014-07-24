@@ -23,7 +23,7 @@ public class FragmentBookComments extends BaseFragment implements View.OnClickLi
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.w_book,container,false);
+		View rootView = inflater.inflate(R.layout.w_book_index,container,false);
 		return rootView;
 	}
 

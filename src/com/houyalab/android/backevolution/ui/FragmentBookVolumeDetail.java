@@ -10,7 +10,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.houyalab.android.backevolution.R;
 
-public class FragmentBookVolumeDetail extends BaseActivity implements View.OnClickListener {
+public class FragmentBookVolumeDetail extends BaseFragment implements View.OnClickListener {
 
 	public FragmentBookVolumeDetail() {
 	}

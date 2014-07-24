@@ -17,18 +17,16 @@
 	    <TextView android:id="@+id/volume_listitem_title" 
 	        android:layout_width="fill_parent" 
 	     	android:layout_height="wrap_content"
-	     	android:textSize="@dimen/text_size_15"
+	     	android:textSize="@dimen/text_size_18"
 	     	android:textColor="@color/listitem_black"
-	     	android:textStyle="bold"
-	     	android:singleLine="true"/> 	
+	     	android:textStyle="bold" /> 	
 	     	
 	    <TextView android:id="@+id/volume_listitem_description" 
 	        android:layout_width="fill_parent" 
 	     	android:layout_height="wrap_content"
 	     	android:layout_marginTop="8dip"
-	     	android:textSize="@dimen/text_size_12"
-	     	android:textColor="@color/listitem_gray"
-	     	android:singleLine="true"/> 	
+	     	android:textSize="@dimen/text_size_16"
+	     	android:textColor="@color/listitem_black" /> 	
 	</LinearLayout>
 	
     <ImageView 

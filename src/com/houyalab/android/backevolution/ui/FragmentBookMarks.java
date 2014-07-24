@@ -23,7 +23,7 @@ public class FragmentBookMarks extends BaseFragment implements View.OnClickListe
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.w_book,container,false);
+		View rootView = inflater.inflate(R.layout.w_book_bookmarks,container,false);
 		return rootView;
 	}
 

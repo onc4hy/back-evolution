@@ -29,7 +29,7 @@ public class FragmentEvolutionAimMorning extends BaseFragment implements View.On
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.w_evolution,container,false);
+		View rootView = inflater.inflate(R.layout.w_evolution_index,container,false);
 		mBtnEvolutionPlan = (Button) rootView
 				.findViewById(R.id.rb_evolution_plan);
 		mBtnEvolutionCheck = (Button) rootView

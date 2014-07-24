@@ -1,69 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="设置" >
+    android:title="@string/title_meditation_settings" >
 
-    <PreferenceScreen android:title="发呆设置" >
-        <PreferenceCategory android:title="发呆时间长度" >
-			<EditTextPreference android:key="meditation_duration_custom"
-				android:title="自定义发呆时间长度" 
-				android:summary="自定义发呆时间长度"
-				android:defaultValue="0" 
-				android:inputType="phone"
-				android:digits="0123456789" />
-            <ListPreference
-                android:defaultValue="0"
-                android:entries="@array/meditation_durations"
-                android:entryValues="@array/meditation_duration_values"
-                android:key="meditation_duration"
-                android:title="发呆时间长度"
-				android:summary="发呆时间长度" />
-        </PreferenceCategory>
-        <PreferenceCategory android:title="发呆预备时间长度" >
-            <ListPreference
-                android:defaultValue="0"
-                android:entries="@array/meditation_prepares"
-                android:entryValues="@array/meditation_prepare_values"
-                android:key="meditation_prepare"
-                android:title="发呆预备时间长度"
-				android:summary="发呆预备时间长度" />
-        </PreferenceCategory>
-        <PreferenceCategory android:title="开始音乐设置" >
-            <ListPreference
-                android:defaultValue="0"
-                android:entries="@array/meditation_begin_musics"
-                android:entryValues="@array/meditation_begin_music_values"
-                android:key="meditation_begin_music"
-                android:title="开始音乐"
-				android:summary="开始音乐" />
-        </PreferenceCategory>
-        <PreferenceCategory android:title="结束音乐设置" >
-            <ListPreference
-                android:defaultValue="0"
-                android:entries="@array/meditation_end_musics"
-                android:entryValues="@array/meditation_end_music_values"
-                android:key="meditation_end_music"
-                android:title="结束音乐"
-				android:summary="结束音乐" />
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="meditation_play_mode"
-                android:title="循环播放"
-				android:summaryOn="循环"
-				android:summaryOff="不循环" />
-        </PreferenceCategory>
-    </PreferenceScreen>
-	
-    <PreferenceScreen android:title="使用偏好" >
+    <PreferenceCategory android:title="@string/meditation_time_setting" >
+        <ListPreference
+            android:key="meditation_time_duration"
+            android:title="@string/meditation_time_duration"
+            android:defaultValue="10"
+            android:entries="@array/meditation_time_durations"
+            android:entryValues="@array/meditation_time_duration_values" />
+        <ListPreference
+            android:key="meditation_time_prepare"
+            android:title="@string/meditation_time_prepare"
+            android:defaultValue="3"
+            android:entries="@array/meditation_time_prepares"
+            android:entryValues="@array/meditation_time_prepare_values" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/meditation_music_setting" >
+        <ListPreference
+            android:key="meditation_music_begin"
+            android:title="@string/meditation_music_begin"
+            android:defaultValue="bowl.mp3"
+            android:entries="@array/meditation_music_begins"
+            android:entryValues="@array/meditation_music_begin_values" />
+        <ListPreference
+            android:key="meditation_music_end"
+            android:title="@string/meditation_music_end"
+            android:defaultValue="gong.mp3"
+            android:entries="@array/meditation_music_ends"
+            android:entryValues="@array/meditation_music_end_values" />
+
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="confirm_on_exit"
-            android:summary="退出时显示确认框"
-            android:title="退出确认" />
-        <CheckBoxPreference
+            android:key="meditation_music_play_mode"
+            android:title="@string/meditation_music_play_mode"
             android:defaultValue="true"
-            android:key="autoupdate"
-            android:summary="自动检测新版本"
-            android:title="自动升级" />
-    </PreferenceScreen>
+            android:summaryOff="@string/meditation_music_play_no_loop"
+            android:summaryOn="@string/meditation_music_play_loop" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

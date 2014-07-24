@@ -29,7 +29,7 @@ public class FragmentEvolutionCheck extends BaseFragment implements View.OnClick
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.w_evolution,container,false);
+		View rootView = inflater.inflate(R.layout.w_evolution_check,container,false);
 		mBtnEvolutionPlan = (Button) rootView
 				.findViewById(R.id.rb_evolution_plan);
 		mBtnEvolutionCheck = (Button) rootView

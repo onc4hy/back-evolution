@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,73 +11,83 @@
     <LinearLayout
         android:id="@+id/ll_book_headbar"
         android:layout_width="fill_parent"
-        android:layout_height="140dip"
-        android:layout_alignParentTop="true"
+        android:layout_height="80dip"
+        android:layout_marginBottom="10dip"
         android:background="@drawable/bg_book"
         android:gravity="center_vertical"
         android:orientation="vertical" >
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fl_book_index"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_book_headbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp" >
-
-        <ListView
-            android:id="@+id/lv_book_catalog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-
-        <ListView
-            android:id="@+id/lv_book_bookmarks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" >
-        </ListView>
-
-        <ListView
-            android:id="@+id/lv_book_comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" >
-        </ListView>
-    </FrameLayout>
-
     <LinearLayout
-        android:id="@+id/ll_book_footbar"
+        android:id="@+id/ll_book_catalog_navbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/widget_bar_bg_n"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/rb_book_catalog"
+            android:id="@+id/rb_book_zen_catalog"
             style="@style/footbar_radio"
-            android:text="@string/book_btn_catalog" />
+            android:text="@string/book_btn_zen_catalog" />
 
         <ImageView
             style="@style/footbar_cutline"
             android:src="@drawable/widget_bar_cut_off" />
 
         <RadioButton
-            android:id="@+id/rb_book_bookmark"
+            android:id="@+id/rb_book_pure_catalog"
             style="@style/footbar_radio"
-            android:text="@string/book_btn_bookmark" />
+            android:text="@string/book_btn_pure_catalog" />
 
         <ImageView
             style="@style/footbar_cutline"
             android:src="@drawable/widget_bar_cut_off" />
 
         <RadioButton
-            android:id="@+id/rb_book_comments"
+            android:id="@+id/rb_book_all_catalog"
             style="@style/footbar_radio"
-            android:text="@string/book_btn_comments" />
+            android:text="@string/book_btn_all_catalog" />
     </LinearLayout>
 
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fl_book_catalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_book_headbar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="12dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="0dp" >
+
+        <ListView
+            android:id="@+id/lv_book_zen_catalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/listview_item_divider"
+            android:dividerHeight="5dip"
+            android:footerDividersEnabled="false" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/lv_book_pure_catalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/listview_item_divider"
+            android:dividerHeight="5dip"
+            android:footerDividersEnabled="false"
+            android:visibility="gone" >
+        </ListView>
+
+        <ExpandableListView
+            android:id="@+id/ev_book_other_catalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="5dip"
+            android:footerDividersEnabled="false"
+            android:visibility="gone" >
+        </ExpandableListView>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -3,6 +3,8 @@
     android:orientation="horizontal" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
+	android:layout_margin="12dip"
+	android:background="@drawable/listview_item_shape"
     android:descendantFocusability="blocksDescendants" 
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
@@ -17,7 +19,7 @@
 	    <TextView android:id="@+id/volume_listitem_title" 
 	        android:layout_width="fill_parent" 
 	     	android:layout_height="wrap_content"
-	     	android:textSize="@dimen/text_size_18"
+	     	android:textSize="@dimen/text_size_22"
 	     	android:textColor="@color/listitem_black"
 	     	android:textStyle="bold" /> 	
 	     	
@@ -25,15 +27,18 @@
 	        android:layout_width="fill_parent" 
 	     	android:layout_height="wrap_content"
 	     	android:layout_marginTop="8dip"
-	     	android:textSize="@dimen/text_size_16"
+			android:paddingLeft="10dp"
+	     	android:textSize="@dimen/text_size_20"
+			android:background="@drawable/listview_item_shape"
 	     	android:textColor="@color/listitem_black" /> 	
 	</LinearLayout>
 	
     <ImageView 
         android:layout_width="wrap_content" 
      	android:layout_height="wrap_content"
-     	android:layout_gravity="center_vertical"
-     	android:layout_marginRight="10dip" 
+     	android:layout_gravity="center"
+     	android:layout_marginLeft="2dip" 
+     	android:layout_marginRight="2dip" 
      	android:src="@drawable/widget_right_icon"/>
     
 </LinearLayout> 

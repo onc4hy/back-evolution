@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 
 import com.houyalab.android.backevolution.R;
 
@@ -14,18 +20,29 @@ public class SplashActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.w_splash);
+		View rootView = View.inflate(getApplicationContext(),
+				R.layout.w_splash, null);
+		setContentView(rootView);
 
-		mHandler = new Handler();
-		mHandler.postDelayed(new Runnable() {
+		AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+		alphaAnimation.setDuration(2000);
+		alphaAnimation.setAnimationListener(new AnimationListener() {
 			@Override
-			public void run() {
-				Intent intent = new Intent(getApplicationContext(),
-						MainActivity.class);
-				startActivity(intent);
-				finish();
+			public void onAnimationStart(Animation arg0) {
 			}
-		}, 2000);
+
+			@Override
+			public void onAnimationRepeat(Animation arg0) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animation arg0) {
+				enterMain();
+			}
+
+		});
+
+		rootView.startAnimation(alphaAnimation);
 	}
 
 	@Override
@@ -33,4 +50,17 @@ public class SplashActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			enterMain();
+		}
+		return true;
+	}
+
+	public void enterMain() {
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		startActivity(intent);
+		finish();
+	}
 }

@@ -29,13 +29,6 @@ public class FragmentBookComments extends BaseFragment implements View.OnClickLi
 
 	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.rb_book_catalog) {
-			AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(getActivity());
-			dlgBuilder.setTitle(R.string.title_meditation_settings);
-			dlgBuilder.show();
-		} else if (view.getId() == R.id.rb_book_bookmark) {
-		} else if (view.getId() == R.id.rb_book_comments) {
-		}
 	}
 
 	

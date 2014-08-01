@@ -6,7 +6,7 @@
         <ListPreference
             android:key="meditation_time_duration"
             android:title="@string/meditation_time_duration"
-            android:defaultValue="10"
+            android:defaultValue="5"
             android:entries="@array/meditation_time_durations"
             android:entryValues="@array/meditation_time_duration_values" />
         <ListPreference

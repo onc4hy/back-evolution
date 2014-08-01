@@ -4,6 +4,8 @@
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants" 
+	android:layout_margin="12dp"
+	android:background="@drawable/listview_item_shape"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:paddingTop="15dip"
@@ -28,14 +30,14 @@
 	     	android:layout_height="wrap_content"
 	     	android:layout_marginTop="8dip"
 	     	android:textSize="@dimen/text_size_16"
-	     	android:textColor="@color/listitem_gray" /> 	
+	     	android:textColor="@color/listitem_black" /> 	
 	</LinearLayout>
 
     <ImageView 
         android:layout_width="wrap_content" 
      	android:layout_height="wrap_content"
-     	android:layout_gravity="center_vertical"
-     	android:layout_marginRight="10dip" 
+     	android:layout_gravity="center"
+     	android:layout_marginRight="2dip" 
      	android:src="@drawable/widget_right_icon"/>
     
 </LinearLayout> 

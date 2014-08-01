@@ -11,7 +11,7 @@
         android:id="@+id/fl_meditation_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_meditation" >
+        android:background="@drawable/splash" >
 
         <Chronometer
             android:id="@+id/meditation_chronometer"
@@ -53,32 +53,32 @@
         <ImageView
             style="@style/footbar_cutline"
             android:src="@drawable/widget_bar_cut_off" />
-
+<!--
         <RadioButton
             android:id="@+id/rb_meditation_check"
             style="@style/footbar_radio"
             android:layout_weight="1"
             android:text="@string/meditation_btn_check" />
+-->
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/ll_meditation_infobar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
         android:layout_above="@+id/ll_meditation_footbar"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/tv_meditation_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="8dip"
-            android:visibility="gone"
-            android:text="@null" >
-        </TextView>
+		<ProgressBar
+		    android:id="@+id/pb_meditation_info"
+		    style="?android:attr/progressBarStyleHorizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="10dip"
+		    android:layout_gravity="center"
+		    android:gravity="center"
+		    android:max="100"
+		    android:progress="0" />
         
     </RelativeLayout>
 

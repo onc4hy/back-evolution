@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">发呆小器</string>
+    <string name="app_name">发呆小器-I</string>
+    <string name="app_version">v 0.1</string>
     <string name="title_meditation">发呆</string>
     <string name="title_meditation_settings">发呆设置</string>
     <string name="title_meditation_check">发呆回顾</string>
@@ -38,7 +39,13 @@
     <string name="book_headline">读经使人明智</string>
     <string name="book_btn_catalog">主目录</string>
     <string name="book_btn_bookmark">书签</string>
-    <string name="book_btn_comments">读书笔记</string>
+    <string name="book_btn_comments">读书笔记</string>    
+    <string name="book_btn_zen_catalog">禅宗七经</string>
+    <string name="book_btn_pure_catalog">净宗五经一论</string>
+    <string name="book_btn_all_catalog">其他经书</string>
+    <string name="book_btn_textsize_default">默认字号</string>
+    <string name="book_btn_textsize_greater">+ 增大字号</string>
+    <string name="book_btn_textsize_smaller">- 缩小字号</string>
     <string name="book_volume_head_title">读书-详情内容</string>
     <string name="evolution_headline">时时察看你自己的演化历史</string>
     <string name="evolution_remark">演化历史</string>
@@ -54,7 +61,7 @@
     <string name="lbl_ok">确认</string>
     <string name="lbl_cancel">取消</string>
     <string name="lbl_exit_confirm_info">确认退出吗?</string>
-    <string name="txt_about_title">关于</string>
+    <string name="txt_about_title">关于发呆小器-I ...</string>
     <string name="txt_about_body">v 0.1\nauthor:onc4hy</string>
     
 </resources>

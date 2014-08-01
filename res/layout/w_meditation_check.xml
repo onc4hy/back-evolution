@@ -13,13 +13,15 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_meditation_headline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/meditation_headline"
-            android:layout_marginBottom="0dip" >
-        </TextView>
+		<ListView 
+			android:id="@+id/lv_meditation_check_list"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#cccc"
+			android:choiceMode="singleChoice"
+			android:divider="@android:color/transparent"
+			android:dividerHeight="0dp"/>
+
 
     </LinearLayout>
 

@@ -2,29 +2,22 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tv_about_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_about_title" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-
-        <TextView
-            android:id="@+id/tv_about_body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/txt_about_body"/>
-
-    </ScrollView>
+	<ScrollView
+		android:id="@+id/sv_about_body"
+		android:background="@drawable/listview_item_shape"
+		android:layout_width="fill_parent"
+		android:layout_height="match_parent" >
+		<TextView
+			android:id="@+id/tv_about_body"
+			android:background="@drawable/listview_item_shape"
+			android:paddingLeft="10dp"
+	     	android:textSize="@dimen/text_size_16"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="0dip" />
+	</ScrollView>
 		
 </LinearLayout>

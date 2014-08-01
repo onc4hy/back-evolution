@@ -40,14 +40,12 @@
     </string-array>
     <string-array name="meditation_music_begins">
         <item>禅钵</item>
-        <item>如茶流动</item>
     </string-array>
     <string-array name="meditation_music_begin_values">
         <item>bowl.mp3</item>
-        <item>gong.mp3</item>
     </string-array>
     <string-array name="meditation_music_ends">
-        <item>锣</item>
+        <item>法锣</item>
     </string-array>
     <string-array name="meditation_music_end_values">
         <item>gong.mp3</item>

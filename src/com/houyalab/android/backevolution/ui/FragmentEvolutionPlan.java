@@ -40,25 +40,12 @@ public class FragmentEvolutionPlan extends BaseFragment implements
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.w_evolution_index, container,
 				false);
-		mBtnEvolutionPlan = (Button) rootView
-				.findViewById(R.id.rb_evolution_plan);
-		mBtnEvolutionCheck = (Button) rootView
-				.findViewById(R.id.rb_evolution_check);
-		mSpnEvolutionAims = (Spinner) rootView
-				.findViewById(R.id.rb_evolution_aims);
-
-		mBtnEvolutionPlan.setOnClickListener(this);
-		mBtnEvolutionCheck.setOnClickListener(this);
 
 		return rootView;
 	}
 
 	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.rb_evolution_plan) {
-		} else if (view.getId() == R.id.rb_evolution_check) {
-		} else if (view.getId() == R.id.rb_evolution_aims) {
-		}
 	}
 
 }

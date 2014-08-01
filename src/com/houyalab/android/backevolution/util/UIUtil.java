@@ -1,6 +1,6 @@
 package com.houyalab.android.backevolution.util;
 
-import com.houyalab.android.backevolution.ui.FragmentBookVolumeDetail;
+import com.houyalab.android.backevolution.ui.ActivityBookVolumeDetail;
 import com.houyalab.android.backevolution.ui.LoginActivity;
 import com.houyalab.android.backevolution.ui.MainActivity;
 
@@ -31,7 +31,7 @@ public class UIUtil {
 	}
 	
 	public static void showBookVolumeDetail(Context context, int volumeId) {
-		Intent intent = new Intent(context, FragmentBookVolumeDetail.class);
+		Intent intent = new Intent(context, ActivityBookVolumeDetail.class);
 		intent.putExtra("volume_id", volumeId);
 		context.startActivity(intent);
 	}

@@ -8,5 +8,33 @@
     android:gravity="center"
     android:background="@drawable/splash">
 
+    <ImageView
+        android:id="@+id/iv_splash_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dip"
+        android:layout_marginTop="200dip"
+        android:src="@drawable/logo1" />
+
+    <TextView
+        android:id="@+id/tv_splash_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dip"
+        android:layout_marginTop="270dip"
+        android:textSize="@dimen/text_size_22"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/app_name" />
+	
+    <TextView
+        android:id="@+id/tv_splash_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dip"
+        android:layout_marginTop="300dip"
+        android:textSize="@dimen/text_size_20"
+        android:textColor="@color/black"
+        android:text="@string/app_version" />
 	
 </FrameLayout>

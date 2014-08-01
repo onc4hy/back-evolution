@@ -17,7 +17,7 @@
             android:id="@+id/tv_evolution_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/meditation_headline"
+            android:text="@null"
             android:layout_marginBottom="0dip" >
         </TextView>
 

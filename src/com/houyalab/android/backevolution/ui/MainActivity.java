@@ -2,6 +2,8 @@ package com.houyalab.android.backevolution.ui;
 
 import java.lang.reflect.Field;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,7 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
@@ -41,7 +43,7 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	private void initActionBar() {
 		mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(false);
 		mActionBar.setHomeButtonEnabled(true);
 
 		mBackendPagerAdapter = new BackendPagerAdapter(
@@ -61,7 +63,7 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 		for (int i = 0; i < mBackendPagerAdapter.getCount(); i++) {
 			mActionBar.addTab(mActionBar.newTab()
 					.setText(mBackendPagerAdapter.getPageTitle(i))
-					.setIcon(mBackendPagerAdapter.getPageIcon(i))
+					// .setIcon(mBackendPagerAdapter.getPageIcon(i))
 					.setTabListener(this));
 		}
 		mActionBar.setSelectedNavigationItem(0);
@@ -116,30 +118,25 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_profile:
-			Intent profileIntent = new Intent(this, ProfileActivity.class);
-			startActivity(profileIntent);
-			return true;
-		case R.id.action_signin:
-			Intent signoutIntent = new Intent(this, ProfileActivity.class);
-			signoutIntent.putExtra("do", "signout");
-			startActivity(signoutIntent);
-			return true;
-		case R.id.action_signup:
-			return true;
-			/*
-			 * case R.id.action_signout: return true;
-			 */
+		/*
+		 * case R.id.action_profile: Intent profileIntent = new Intent(this,
+		 * ProfileActivity.class); startActivity(profileIntent); return true;
+		 * case R.id.action_signin: Intent signoutIntent = new Intent(this,
+		 * ProfileActivity.class); signoutIntent.putExtra("do", "signout");
+		 * startActivity(signoutIntent); return true; case R.id.action_signup:
+		 * return true; case R.id.action_signout: return true;
+		 */
 		case R.id.action_settings:
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);
 			startActivityForResult(settingsIntent, 0);
 			return true;
 		case R.id.action_about:
 			DialogAbout dlgAbout = new DialogAbout(this);
+			dlgAbout.setTitle(getResources().getString(R.string.title_about));
 			dlgAbout.show();
 			return true;
 		case R.id.action_exit:
-			finish();
+			confirmExit();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -159,4 +156,28 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			confirmExit();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private void confirmExit() {
+		AlertDialog.Builder dlg = new AlertDialog.Builder(
+				getApplicationContext());
+		dlg.setTitle(R.string.title_exit);
+		dlg.setMessage(R.string.lbl_exit_confirm_info);
+		dlg.setPositiveButton(R.string.lbl_ok,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						MainActivity.this.finish();
+						// android.os.Process.killProcess(pid)
+					}
+				});
+		dlg.create().show();
+	}
 }

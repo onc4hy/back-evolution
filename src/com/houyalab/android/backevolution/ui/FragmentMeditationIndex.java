@@ -3,9 +3,11 @@ package com.houyalab.android.backevolution.ui;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.IntentSender.SendIntentException;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -31,7 +34,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private RadioButton mRBtnMeditationCheck;
 	private MediaPlayer mPlayer;
 	private Chronometer mChronometer;
-	private TextView mTvMeditationInfo;
 	private boolean mMusicPlayMode;
 	private boolean mMeditationDoState;
 	private String mMusicUriRootPath;
@@ -40,7 +42,12 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private int mMeditationTimeDuration;
 	private int mMeditationTimePrepare;
 	private SharedPreferences mSharedPrefs;
+	
+	private ProgressBar mPbMeditationInfo;
+	private int mProgressMeditationDuration;
 
+	private Handler mHandler;
+	
 	public FragmentMeditationIndex() {
 		mMeditationDoState = false;
 		mMeditationTimeDuration = HelperUtil.DEFAULT_MEDITATION_TIME_DURATION;
@@ -50,6 +57,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getMeditationSettings();
+		mPlayer = new MediaPlayer();
 	}
 
 	@Override
@@ -57,45 +65,24 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.w_meditation_index, container,
 				false);
-		mTvMeditationInfo = (TextView) rootView
-				.findViewById(R.id.tv_meditation_info);
+		mPbMeditationInfo = (ProgressBar) rootView
+				.findViewById(R.id.pb_meditation_info);
+		mPbMeditationInfo.setVisibility(View.INVISIBLE);
+		
 		mRBtnMeditationSetting = (RadioButton) rootView
 				.findViewById(R.id.rb_meditation_settings);
 		mRBtnMeditationDo = (RadioButton) rootView
 				.findViewById(R.id.rb_meditation_do);
-		mRBtnMeditationCheck = (RadioButton) rootView
-				.findViewById(R.id.rb_meditation_check);
+		//mRBtnMeditationCheck = (RadioButton) rootView
+		//		.findViewById(R.id.rb_meditation_check);
 
 		mRBtnMeditationSetting.setOnClickListener(this);
 		mRBtnMeditationDo.setOnClickListener(this);
-		mRBtnMeditationCheck.setOnClickListener(this);
+		//mRBtnMeditationCheck.setOnClickListener(this);
 
 		mMeditationDoState = false;
 		mRBtnMeditationDo.setText(R.string.meditation_btn_start);
 
-		mChronometer = (Chronometer) rootView
-				.findViewById(R.id.meditation_chronometer);
-		if (mChronometer != null) {
-			mChronometer
-					.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-						@Override
-						public void onChronometerTick(Chronometer chronometer) {
-							long elapsedTime = SystemClock.elapsedRealtime()
-									- chronometer.getBase();
-							if (elapsedTime >= mMeditationTimeDuration * 60 * 1000) {
-								stopTimer();
-								mTvMeditationInfo.setVisibility(View.GONE);
-							} else {
-								if (mTvMeditationInfo != null) {
-									mTvMeditationInfo
-											.setVisibility(View.VISIBLE);
-									mTvMeditationInfo.setText(String
-											.valueOf(elapsedTime / (60 * 1000)));
-								}
-							}
-						}
-					});
-		}
 		return rootView;
 	}
 
@@ -108,63 +95,66 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		} else if (view.getId() == R.id.rb_meditation_do) {
 			try {
 				getMeditationSettings();
+				Uri uriMusicBeginPath = null;
+				Uri uriMusicEndPath = null;
+				mMusicUriRootPath = "android.resource://"
+						+ getActivity().getPackageName() + "/";
+				if (mMusicBeginName.equalsIgnoreCase("bowl.mp3")) {
+					uriMusicBeginPath = Uri.parse(mMusicUriRootPath + R.raw.bowl);
+				}else if (mMusicBeginName.equalsIgnoreCase("gong.mp3")) {
+					uriMusicBeginPath = Uri.parse(mMusicUriRootPath + R.raw.gong);
+				}else {
+					uriMusicBeginPath = Uri.parse(mMusicUriRootPath + R.raw.bowl);
+				}
+				if (mMusicEndName.equalsIgnoreCase("bowl.mp3")) {
+					uriMusicEndPath = Uri.parse(mMusicUriRootPath + R.raw.bowl);
+				}else if (mMusicEndName.equalsIgnoreCase("gong.mp3")) {
+					uriMusicEndPath = Uri.parse(mMusicUriRootPath + R.raw.gong);
+				}else {
+					uriMusicEndPath = Uri.parse(mMusicUriRootPath + R.raw.gong);
+				}
+				
 				if (mMeditationDoState == false) {
-					String uriMusicBeginPath = "";
-					String uriMusicEndPath = "";
-					mMusicUriRootPath = "android.resource://"
-							+ getActivity().getPackageName() + "/raw/";
-					uriMusicBeginPath = mMusicUriRootPath + mMusicBeginName;
-					uriMusicEndPath = mMusicUriRootPath + mMusicEndName;
-					if (mPlayer != null) {
-						if (mPlayer.isPlaying()) {
-							mPlayer.stop();
-						}
-						mPlayer.release();
-						mPlayer = null;
-					}
-					/*
-					 * if (mMusicBeginName.equalsIgnoreCase("bowl.mp3")) {
-					 * mPlayer = MediaPlayer.create(getActivity(), R.raw.bowl);
-					 * } else if (mMusicBeginName.equalsIgnoreCase("gong.mp3"))
-					 * { mPlayer = MediaPlayer.create(getActivity(),
-					 * R.raw.gong); } else { mPlayer =
-					 * MediaPlayer.create(getActivity(), R.raw.bowl); }
-					 */
-					mPlayer = MediaPlayer.create(getActivity(), R.raw.bowl);
-					mPlayer.setLooping(mMusicPlayMode);
-					mPlayer.start();
+					Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
+					Bundle extras = new Bundle();
+					extras.putString("musicBeginPath",uriMusicBeginPath.toString());
+					extras.putString("musicEndPath",uriMusicEndPath.toString());
+					extras.putBoolean("musicLoopMode",mMusicPlayMode);
+					extras.putString("action","start");
+					service.putExtras(extras);
+					getActivity().startService(service);
+
 					mRBtnMeditationDo.setText(R.string.meditation_btn_stop);
 					mMeditationDoState = true;
-
-					startTimer();
+					
 				} else {
-					if (mPlayer.isPlaying()) {
-						mPlayer.stop();
-						mPlayer.release();
-						mPlayer = null;
-					}
+					Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
+					Bundle extras = new Bundle();
+					extras.putString("musicBeginPath",uriMusicBeginPath.toString());
+					extras.putString("musicEndPath",uriMusicEndPath.toString());
+					extras.putBoolean("musicLoopMode",mMusicPlayMode);
+					extras.putString("action","stop");
+					service.putExtras(extras);
+					getActivity().startService(service);
+					
 					mRBtnMeditationDo.setText(R.string.meditation_btn_start);
 					mMeditationDoState = false;
-
-					stopTimer();
-					mTvMeditationInfo.setVisibility(View.GONE);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (view.getId() == R.id.rb_meditation_check) {
-			FragmentMeditationCheck fragMeditationCheck = new FragmentMeditationCheck();
-			getFragmentManager().beginTransaction()
-					.replace(R.layout.w_meditation_index, fragMeditationCheck)
-					.commit();
+		//} else if (view.getId() == R.id.rb_meditation_check) {
+		//	Intent intentTarget = new Intent(getActivity(),
+		//			ActivityMeditationCheck.class);
+		//	startActivity(intentTarget);
 		}
 	}
 
 	private void getMeditationSettings() {
 		mSharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
-		if (mSharedPrefs.contains("meditation_music_end")) {
-			mMusicBeginName = mSharedPrefs.getString("meditation_music_end",
+		if (mSharedPrefs.contains("meditation_music_begin")) {
+			mMusicBeginName = mSharedPrefs.getString("meditation_music_begin",
 					HelperUtil.DEFAULT_BEGIN_MUSIC_PATH);
 		} else {
 			mMusicBeginName = HelperUtil.DEFAULT_BEGIN_MUSIC_PATH;
@@ -188,38 +178,4 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		// mSharedPrefs.getInt("meditation_time_prepare",HelperUtil.DEFAULT_MEDITATION_TIME_PREPARE);
 	}
 
-	private void startTimer() {
-		if (mChronometer != null) {
-			mChronometer.setBase(SystemClock.elapsedRealtime());
-			mChronometer.start();
-		}
-	}
-
-	private void stopTimer() {
-		if (mChronometer != null) {
-			mChronometer.stop();
-			if (mPlayer != null) {
-				if (mPlayer.isPlaying()) {
-					mPlayer.stop();
-					mPlayer.release();
-					mPlayer = null;
-				}
-				if (mMusicEndName != null
-						&& mMusicEndName.equalsIgnoreCase("gong.mp3")) {
-					mPlayer = MediaPlayer.create(getActivity(), R.raw.gong);
-				} else {
-					mPlayer = MediaPlayer.create(getActivity(), R.raw.gong);
-				}
-				mPlayer.setLooping(false);
-				mPlayer.start();
-				mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-					@Override
-					public void onCompletion(MediaPlayer mp) {
-						mp.stop();
-						//mp.release();
-					}
-				});
-			}
-		}
-	}
 }

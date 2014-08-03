@@ -40,15 +40,19 @@
     </string-array>
     <string-array name="meditation_music_begins">
         <item>禅钵</item>
+        <item>禅铃</item>
     </string-array>
     <string-array name="meditation_music_begin_values">
         <item>bowl.mp3</item>
+        <item>bell.mp3</item>
     </string-array>
     <string-array name="meditation_music_ends">
-        <item>法锣</item>
+        <item>禅钵</item>
+        <item>禅铃</item>
     </string-array>
     <string-array name="meditation_music_end_values">
-        <item>gong.mp3</item>
+        <item>bowl.mp3</item>
+        <item>bell.mp3</item>
     </string-array>
     <string-array name="share_items">
         <item>新浪微博</item>

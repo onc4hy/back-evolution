@@ -8,30 +8,51 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
     
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_book_volume_headbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+
 		<TextView
-			android:id="@+id/tv_book_volume_head_title"
-			android:background="@drawable/listview_item_shape"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:textColor="@color/listitem_black"
-			android:textSize="@dimen/text_size_22"
-			android:textStyle="bold" />
+		    android:id="@+id/tv_book_volume_head_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:background="@drawable/listview_item_shape"
+		    android:textColor="@color/listitem_black"
+		    android:textSize="@dimen/text_size_22"
+		    android:textStyle="bold" />
 
-    </LinearLayout>
+		<Button
+		    android:id="@+id/btn_book_volume_expand_all"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:baselineAlignBottom="true"
+		    android:drawableLeft="@drawable/down"
+		    android:text="@string/book_btn_expand_all" />
 
-    <ListView
-        android:id="@+id/lv_book_volumne_tile"
+		<Button
+		    android:id="@+id/btn_book_volume_collapse_all"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_toLeftOf="@+id/btn_book_volume_expand_all"
+		    android:baselineAlignBottom="true"
+		    android:drawableLeft="@drawable/up"
+		    android:text="@string/book_btn_collapse_all" />
+
+		</RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/elv_book_volumne_tile"
         android:layout_below="@+id/ll_book_volume_headbar"
 		android:dividerHeight="8dip"
 		android:footerDividersEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+    </ExpandableListView>
         
 </RelativeLayout>

@@ -14,8 +14,14 @@ import com.houyalab.android.backevolution.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.preference.Preference;
 
 public class BookDao extends BaseDao {
+
+	public BookDao(Context context, String name, CursorFactory factory,
+			int version) {
+		super(context, name, factory, version);
+	}
 
 }

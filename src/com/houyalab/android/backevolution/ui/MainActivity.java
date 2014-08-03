@@ -165,19 +165,25 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 	}
 
 	private void confirmExit() {
-		AlertDialog.Builder dlg = new AlertDialog.Builder(
-				getApplicationContext());
-		dlg.setTitle(R.string.title_exit);
-		dlg.setMessage(R.string.lbl_exit_confirm_info);
-		dlg.setPositiveButton(R.string.lbl_ok,
+		AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(
+				this);
+		dlgBuilder.setTitle(R.string.title_exit);
+		dlgBuilder.setMessage(R.string.lbl_exit_confirm_info);
+		dlgBuilder.setPositiveButton(R.string.lbl_ok,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						MainActivity.this.finish();
-						// android.os.Process.killProcess(pid)
 					}
 				});
-		dlg.create().show();
+		dlgBuilder.setNegativeButton(R.string.lbl_cancel,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		dlgBuilder.show();
 	}
 }

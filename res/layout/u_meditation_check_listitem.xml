@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants" 
 	android:layout_margin="12dp"
-	android:background="@drawable/body_cont"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:paddingTop="8dip"
@@ -60,6 +59,6 @@
      	android:layout_height="wrap_content"
      	android:layout_gravity="center_vertical"
      	android:layout_marginRight="10dip" 
-     	android:src="@drawable/widget_right_icon"/>
+     	android:src="@drawable/right_icon"/>
     
 </LinearLayout> 

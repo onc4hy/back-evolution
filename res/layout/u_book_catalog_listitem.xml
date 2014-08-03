@@ -38,6 +38,6 @@
      	android:layout_height="wrap_content"
      	android:layout_gravity="center"
      	android:layout_marginRight="2dip" 
-     	android:src="@drawable/widget_right_icon"/>
+     	android:src="@drawable/right_icon"/>
     
 </LinearLayout> 

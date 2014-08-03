@@ -3,6 +3,7 @@ package com.houyalab.android.backevolution.service;
 import java.util.TimerTask;
 
 import com.houyalab.android.backevolution.R;
+import com.houyalab.android.backevolution.util.UIUtil;
 
 import android.app.Service;
 import android.content.Intent;
@@ -20,14 +21,14 @@ public class MeditationService extends Service implements
 	
 	private static final String TAG = "MEDITATION_SERVICE";
 	private MediaPlayer mPlayer;
-	private IBinder mBinder = new MeditationBind();
+	private IBinder mBinder = new ServiceBinder();
 	private TimerTask timerTask = new TimerTask() {
 		@Override
 		public void run() {
 		}
 	}; 
 	
-	public class MeditationBind extends Binder {
+	private class ServiceBinder extends Binder {
 		MeditationService getService() {
 			return MeditationService.this;
 		}
@@ -37,46 +38,62 @@ public class MeditationService extends Service implements
 	public void onCreate() {
 		super.onCreate();
 
-		mPlayer = new MediaPlayer();
+		//mPlayer = new MediaPlayer();
 		initMediaPlayer();
 	}
-
-	private void initMediaPlayer() {
-		mPlayer.setWakeMode(getApplicationContext(),
-				PowerManager.PARTIAL_WAKE_LOCK);
-		mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-		mPlayer.setOnPreparedListener(this);
-		mPlayer.setOnCompletionListener(this);
-		mPlayer.setOnErrorListener(this);
-	}
-
+	
 	@Override
-	@Deprecated
-	public void onStart(Intent intent, int startId) {
+	public int onStartCommand(Intent intent, int flags, int startId) {
 		Bundle extras = intent.getExtras();
 		doAction(extras);
+		return super.onStartCommand(intent, flags, startId);
+	}
+
+
+	private void initMediaPlayer() {
+		//mPlayer.setWakeMode(getApplicationContext(),
+		//		PowerManager.PARTIAL_WAKE_LOCK);
+		//mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+		//mPlayer.setOnPreparedListener(this);
+		//mPlayer.setOnCompletionListener(this);
+		//mPlayer.setOnErrorListener(this);
 	}
 
 	public void doAction(Bundle extras) {
-		String musicBeginPath = extras.getString("musicBeginPath");
-		String musicEndPath = extras.getString("musicEndPath");
-		boolean musicLoopMode = extras.getBoolean("musicLoopMode");
+		final String musicBeginPath = extras.getString("musicBeginPath");
+		final String musicEndPath = extras.getString("musicEndPath");
+		final boolean musicLoopMode = extras.getBoolean("musicLoopMode");
 		String action = extras.getString("action");
 		try {
 			if (action == null || action.trim().equals("")) {
 				action = "start";
 			}
 			if (action.equalsIgnoreCase("start")) {
-				mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bowl);
-				//mPlayer.setDataSource(musicBeginPath);
-				mPlayer.setLooping(true);
-				mPlayer.prepare();
-				mPlayer.start();
+				Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bowl);
+							//mPlayer.setDataSource(musicBeginPath);
+							mPlayer.setLooping(musicLoopMode);
+							mPlayer.setVolume(100,100);
+							mPlayer.prepare();
+							mPlayer.start();
+							UIUtil.message(getApplicationContext(),String.valueOf(mPlayer.isPlaying()));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				thread.start();
 			}else if (action.equalsIgnoreCase("stop")) {
-				if (mPlayer.isPlaying()) {
-					mPlayer.stop();
+				if (mPlayer != null) {
+					if (mPlayer.isPlaying()) {
+						mPlayer.stop();
+					}
 					mPlayer.release();
+					mPlayer = null;
 				}
 			}
 		} catch (Exception e) {
@@ -85,38 +102,53 @@ public class MeditationService extends Service implements
 	}
 
 	@Override
-	public IBinder onBind(Intent arg0) {
+	public IBinder onBind(Intent intent) {
 		return mBinder;
 	}
 
 	@Override
 	public boolean onUnbind(Intent intent) {
-		mPlayer.stop();
-		mPlayer.release();
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+				}
+				mPlayer.release();
+				mPlayer = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public void onDestroy() {
-		if (mPlayer.isPlaying()) {
-			mPlayer.stop();
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+				}
+				mPlayer.release();
+				mPlayer = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		mPlayer.release();
 		
 		super.onDestroy();
 	}
 
 	@Override
-	public void onCompletion(MediaPlayer arg0) {
+	public void onCompletion(MediaPlayer mp) {
 	}
 
 	@Override
-	public boolean onError(MediaPlayer arg0, int arg1, int arg2) {
+	public boolean onError(MediaPlayer mp, int arg1, int arg2) {
 		return false;
 	}
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {
-		mp.start();
 	}
 }

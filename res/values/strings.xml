@@ -25,12 +25,12 @@
     <string name="meditation_time_duration_custom">发呆持续时间自定义长度</string>
     <string name="meditation_time_prepare">发呆预备时间</string>
     <string name="meditation_music_setting">发呆音乐设置</string>
-    <string name="meditation_music_begin">开始音乐</string>
-    <string name="meditation_music_end">结束音乐</string>
-    <string name="meditation_music_play_mode">音乐循环模式</string>
+    <string name="meditation_music_begin">开始背景音</string>
+    <string name="meditation_music_end">结束背景音</string>
+    <string name="meditation_music_play_mode">背景音循环模式</string>
     <string name="meditation_music_play_loop">循环播放</string>
     <string name="meditation_music_play_no_loop">不循环播放</string>
-    <string name="meditation_music_loop_mode">音乐循环模式</string>
+    <string name="meditation_music_loop_mode">背景音循环模式</string>
     <string name="meditation_music_loop_mode_label">循环播放</string>
     <string name="meditation_btn_settings">发呆设置</string>
     <string name="meditation_btn_start">开始发呆</string>
@@ -46,6 +46,8 @@
     <string name="book_btn_textsize_default">默认字号</string>
     <string name="book_btn_textsize_greater">+ 增大字号</string>
     <string name="book_btn_textsize_smaller">- 缩小字号</string>
+    <string name="book_btn_collapse_all">全收</string>
+    <string name="book_btn_expand_all">全展</string>
     <string name="book_volume_head_title">读书-详情内容</string>
     <string name="evolution_headline">时时察看你自己的演化历史</string>
     <string name="evolution_remark">演化历史</string>
@@ -61,6 +63,7 @@
     <string name="lbl_ok">确认</string>
     <string name="lbl_cancel">取消</string>
     <string name="lbl_exit_confirm_info">确认退出吗?</string>
+    <string name="lbl_minute">分钟</string>
     <string name="txt_about_title">关于发呆小器-I ...</string>
     <string name="txt_about_body">v 0.1\nauthor:onc4hy</string>
     

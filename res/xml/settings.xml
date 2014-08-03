@@ -26,7 +26,7 @@
         <ListPreference
             android:key="meditation_music_end"
             android:title="@string/meditation_music_end"
-            android:defaultValue="gong.mp3"
+            android:defaultValue="bell.mp3"
             android:entries="@array/meditation_music_ends"
             android:entryValues="@array/meditation_music_end_values" />
 

@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 import com.houyalab.android.backevolution.R;
 import com.houyalab.android.backevolution.model.MeditationCheckItem;
-import com.houyalab.android.backevolution.util.DbUtil;
 import com.houyalab.android.backevolution.util.JsonUtil;
 
 import android.content.Intent;

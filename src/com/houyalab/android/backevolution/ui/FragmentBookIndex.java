@@ -3,6 +3,7 @@ package com.houyalab.android.backevolution.ui;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -18,14 +19,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.Toast;
 
 import com.houyalab.android.backevolution.R;
-import com.houyalab.android.backevolution.adapter.GroupCatalogAdapter;
 import com.houyalab.android.backevolution.util.JsonUtil;
 
 public class FragmentBookIndex extends BaseFragment implements
@@ -40,14 +42,16 @@ public class FragmentBookIndex extends BaseFragment implements
 	private SimpleAdapter mZenCatalogAdapter;
 	private SimpleAdapter mPureCatalogAdapter;
 	private ExpandableListAdapter mOtherCatalogAdapter;
-	private ArrayList<Map<String, String>> mZenCatalogData;
-	private ArrayList<Map<String, String>> mPureCatalogData;
+	private List<Map<String, String>> mZenCatalogData;
+	private List<Map<String, String>> mPureCatalogData;
+	private List<Map<String, String>> mOtherCatalogGroupData;
+	private List<List<Map<String, String>>> mOtherCatalogChildData;
 
 	private FrameLayout mFlCatalog;
 	private RadioButton mRbZenCatalog;
 	private RadioButton mRbPureCatalog;
 	private RadioButton mRbAllCatalog;
-	
+
 	public FragmentBookIndex() {
 	}
 
@@ -62,29 +66,28 @@ public class FragmentBookIndex extends BaseFragment implements
 		mAM = getActivity().getAssets();
 		View rootView = inflater.inflate(R.layout.w_book_index, container,
 				false);
-		
+
 		mLvBookZenCatalog = (ListView) rootView
 				.findViewById(R.id.lv_book_zen_catalog);
 		mLvBookPureCatalog = (ListView) rootView
 				.findViewById(R.id.lv_book_pure_catalog);
 		mElvBookOtherCatalog = (ExpandableListView) rootView
 				.findViewById(R.id.ev_book_other_catalog);
-		mFlCatalog = (FrameLayout) rootView
-				.findViewById(R.id.fl_book_catalog);
-		
+		mFlCatalog = (FrameLayout) rootView.findViewById(R.id.fl_book_catalog);
+
 		mRbZenCatalog = (RadioButton) rootView
 				.findViewById(R.id.rb_book_zen_catalog);
 		mRbPureCatalog = (RadioButton) rootView
 				.findViewById(R.id.rb_book_pure_catalog);
 		mRbAllCatalog = (RadioButton) rootView
 				.findViewById(R.id.rb_book_all_catalog);
-		
+
 		mRbZenCatalog.setOnClickListener(this);
 		mRbPureCatalog.setOnClickListener(this);
 		mRbAllCatalog.setOnClickListener(this);
-		
+
 		mRbZenCatalog.setChecked(true);
-		
+
 		initBookZenCatalog(rootView);
 		initBookPureCatalog(rootView);
 		initBookOtherCatalog(rootView);
@@ -151,9 +154,9 @@ public class FragmentBookIndex extends BaseFragment implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mPureCatalogAdapter = new SimpleAdapter(getActivity(), mPureCatalogData,
-				R.layout.u_book_catalog_listitem, new String[] { "title",
-						"description" }, new int[] {
+		mPureCatalogAdapter = new SimpleAdapter(getActivity(),
+				mPureCatalogData, R.layout.u_book_catalog_listitem,
+				new String[] { "title", "description" }, new int[] {
 						R.id.catalog_listitem_title,
 						R.id.catalog_listitem_description });
 		mLvBookPureCatalog.setAdapter(mPureCatalogAdapter);
@@ -180,16 +183,66 @@ public class FragmentBookIndex extends BaseFragment implements
 	}
 
 	private void initBookOtherCatalog(View rootView) {
-		mOtherCatalogAdapter = new GroupCatalogAdapter(getActivity());
-		
+		mOtherCatalogGroupData = new ArrayList<Map<String,String>>();
+		mOtherCatalogChildData = new ArrayList<List<Map<String, String>>>();
+		try {
+			InputStream is = mAM.open(
+					"data/books/other_catalog.json");
+			JSONArray jsonCats = JsonUtil.getJsonArrayFromStream(is);
+			for (int i = 0; i < jsonCats.length(); i++) {
+				HashMap<String, String> mapGroupEntry = new HashMap<String, String>();
+				JSONObject cat = jsonCats.getJSONObject(i);
+				JSONArray jsonChilds = cat.getJSONArray("child");
+				String groupTitle = cat.getString("title");
+				List<Map<String,String>> childLists = new ArrayList<Map<String,String>>();
+				for (int j = 0; j < jsonChilds.length(); j++) {
+					HashMap<String, String> mapChildEntry = new HashMap<String, String>();
+					JSONObject child = jsonChilds.getJSONObject(j);
+					mapChildEntry.put("title", child.getString("title"));
+					mapChildEntry.put("description", child.getString("description"));
+					mapChildEntry.put("assets_path", child.getString("assets_path"));
+					childLists.add(mapChildEntry);
+				}
+				mapGroupEntry.put("title",groupTitle);
+				mOtherCatalogGroupData.add(mapGroupEntry);
+				mOtherCatalogChildData.add(childLists);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//mOtherCatalogAdapter = new GroupCatalogAdapter(getActivity());
+
+		mOtherCatalogAdapter = new SimpleExpandableListAdapter(getActivity(), mOtherCatalogGroupData,
+				R.layout.u_book_catalog_level_listitem_expand,
+				R.layout.u_book_catalog_level_listitem_col,
+				new String[] { "title" },
+				new int[] { R.id.tv_book_catalog_level_listitem_title },
+				mOtherCatalogChildData,
+				R.layout.u_book_catalog_level_sub_listitem,
+				new String[] { "title" },
+				new int[] { R.id.tv_book_catalog_level_sub_listitem_title });
 		mElvBookOtherCatalog.setAdapter(mOtherCatalogAdapter);
 
 		mElvBookOtherCatalog
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				.setOnChildClickListener(new OnChildClickListener() {
 
 					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
+					public boolean onChildClick(ExpandableListView parent,
+							View view, int groupPosition, int childPosition,
+							long id) {
+						Intent intentTarget = new Intent(getActivity(),
+								ActivityBookVolumeTile.class);
+						Bundle extras = new Bundle();
+						String bookTitle = mOtherCatalogChildData.get(
+								groupPosition).get(childPosition).get("title");
+						String bookPath = mOtherCatalogChildData.get(
+								groupPosition).get(childPosition).get("assets_path");
+						extras.putString("bookTitle", bookTitle);
+						extras.putString("bookPath", bookPath);
+						intentTarget.putExtras(extras);
+						startActivity(intentTarget);
+						return false;
 					}
 				});
 	}

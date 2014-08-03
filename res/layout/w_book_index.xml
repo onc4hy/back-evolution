@@ -22,7 +22,7 @@
         android:id="@+id/ll_book_catalog_navbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/widget_bar_bg_n"
+        android:background="@drawable/bar_bg_n"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -33,7 +33,7 @@
 
         <ImageView
             style="@style/footbar_cutline"
-            android:src="@drawable/widget_bar_cut_off" />
+            android:src="@drawable/bar_cut_off" />
 
         <RadioButton
             android:id="@+id/rb_book_pure_catalog"
@@ -42,7 +42,7 @@
 
         <ImageView
             style="@style/footbar_cutline"
-            android:src="@drawable/widget_bar_cut_off" />
+            android:src="@drawable/bar_cut_off" />
 
         <RadioButton
             android:id="@+id/rb_book_all_catalog"

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dip"
         android:layout_marginTop="270dip"
-        android:textSize="@dimen/text_size_22"
+        android:textSize="@dimen/text_size_26"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="@string/app_name" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dip"
         android:layout_marginTop="300dip"
-        android:textSize="@dimen/text_size_20"
+        android:textSize="@dimen/text_size_24"
         android:textColor="@color/black"
         android:text="@string/app_version" />
 	

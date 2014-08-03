@@ -91,7 +91,7 @@ public class ActivityBookVolumeDetail extends BaseActivity implements
 			cornerY = mTvVolumeContent.getY();
 			scrollX = currentX - cornerX;
 			scrollY = currentY - cornerY;
-			mTvVolumeContent.scrollBy(0,50);
+			mTvVolumeContent.scrollBy(50,50);
 		}
 		return false;
 	}

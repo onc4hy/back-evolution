@@ -226,6 +226,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 					mInProgress = Long.valueOf(
 							(mDuringEllapsed / mPlanedEllapsed) * 100).intValue();
 					mPbMeditationInfo.setProgress(mInProgress);
+					//mPbMeditationInfo.invalidate();
 					String progCur = String.valueOf(mInProgress)+"%";
 					//mTvProgCur.setVisibility(View.VISIBLE);
 					//mTvProgCur.setText(progCur);

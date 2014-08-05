@@ -39,6 +39,26 @@
             android:id="@+id/rb_book_volume_detail_textsize_greater"
             style="@style/footbar_radio"
             android:text="@string/book_btn_textsize_greater" />
+			
+        <ImageView
+            style="@style/footbar_cutline"
+            android:src="@drawable/bar_cut_off" />
+
+        <ImageView
+            android:id="@+id/iv_book_volume_detail_prev_screen"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/left" />
+			
+        <ImageView
+            style="@style/footbar_cutline"
+            android:src="@drawable/bar_cut_off" />
+
+        <ImageView
+            android:id="@+id/iv_book_volume_detail_next_screen"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+			android:src="@drawable/right" />
     </LinearLayout>
 
     <LinearLayout

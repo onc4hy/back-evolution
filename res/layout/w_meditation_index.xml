@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/fl_meditation_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dip"
         android:background="@drawable/splash" >
     </FrameLayout>
 
@@ -43,51 +43,77 @@
         <ImageView
             style="@style/footbar_cutline"
             android:src="@drawable/bar_cut_off" />
-<!--
-        <RadioButton
-            android:id="@+id/rb_meditation_check"
-            style="@style/footbar_radio"
-            android:layout_weight="1"
-            android:text="@string/meditation_btn_check" />
--->
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/ll_meditation_infobar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dip"
-        android:layout_above="@+id/ll_meditation_footbar" >
+        android:layout_height="120dip"
+        android:orientation="vertical"
+		android:background="#000000"
+        android:layout_above="@+id/ll_meditation_footbar"
+        android:layout_marginBottom="4dip" >
 
-		<TextView android:id="@+id/tv_meditation_prog_cur" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-			android:layout_alignParentLeft="true"
-		    android:layout_marginLeft="10dip"
-			android:textSize="@dimen/text_size_12"
-			android:background="#eee"
-			android:textColor="@color/listitem_black" /> 	
-		<ProgressBar
-		    android:id="@+id/pb_meditation_info"
-		    style="?android:attr/progressBarStyleHorizontal"
-		    android:layout_width="match_parent"
-		    android:layout_height="4dip"
-		    android:layout_gravity="center"
-		    android:layout_centerVertical="true"
-		    android:gravity="center"
-		    android:max="100"
-		    android:progress="0" />
-		<TextView android:id="@+id/tv_meditation_prog_max" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-			android:layout_alignParentRight="true"
-		    android:layout_marginRight="10dip"
-			android:textSize="@dimen/text_size_12"
-			android:background="#eee"
-			android:textColor="@color/listitem_black" /> 	
-        
+        <ProgressBar
+            android:id="@+id/pb_meditation_info"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dip"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+			android:layout_alignParentBottom="true"
+            android:max="100"
+            android:progress="0" />
+			
+        <RelativeLayout
+            android:id="@+id/ll_meditation_infobar_intro2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/pb_meditation_info"
+			android:layout_marginBottom="4dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_meditation_prog_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:text=""
+                android:textColor="#ffececec"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_meditation_infobar_intro1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_above="@id/ll_meditation_infobar_intro2"
+			android:layout_marginTop="8dip"
+			android:layout_marginBottom="8dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_meditation_prog_cur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_bg"
+                android:text=""
+                android:textColor="@color/listitem_black"
+                android:textStyle="bold"
+				android:visibility="gone"
+                android:textSize="48sp" />
+
+        </RelativeLayout>
+		
     </RelativeLayout>
 
 </RelativeLayout>

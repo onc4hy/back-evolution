@@ -1,12 +1,31 @@
 <resources>
 
-    <!--
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- API 14 theme customizations can go here. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+	</style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="actionBarStyle">@style/ActionBarStyle.Ex</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Ex</item>
+        <item name="actionBarTabBarStyle">@style/ActionBarTabBarStyle.Ex</item>
+        <item name="actionBarTabTextStyle">@style/ActionBarTabTextStyle.Ex</item>
+    </style>
+
+    <style name="ActionBarStyle.Ex" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">#FF6699cc</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Ex" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">#FF6699cc</item>
+    </style>
+
+    <style name="ActionBarTabBarStyle.Ex" parent="@style/Widget.AppCompat.Light.ActionBar.TabBar">
+        <item name="android:background">#FF6699cc</item>
+    </style>
+
+    <style name="ActionBarTabTextStyle.Ex" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ff0000</item>
     </style>
 
 </resources>

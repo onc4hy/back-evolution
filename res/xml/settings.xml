@@ -4,11 +4,23 @@
 
     <PreferenceCategory android:title="@string/meditation_time_setting" >
         <ListPreference
-            android:key="meditation_time_duration"
-            android:title="@string/meditation_time_duration"
-            android:defaultValue="5"
-            android:entries="@array/meditation_time_durations"
-            android:entryValues="@array/meditation_time_duration_values" />
+            android:key="meditation_time_duration_hour"
+            android:title="@string/meditation_time_duration_hour"
+            android:defaultValue="0"
+            android:entries="@array/meditation_time_duration_hours"
+            android:entryValues="@array/meditation_time_duration_hour_values" />
+        <ListPreference
+            android:key="meditation_time_duration_minute"
+            android:title="@string/meditation_time_duration_minute"
+            android:defaultValue="2"
+            android:entries="@array/meditation_time_duration_minutes"
+            android:entryValues="@array/meditation_time_duration_minute_values" />
+        <ListPreference
+            android:key="meditation_time_duration_second"
+            android:title="@string/meditation_time_duration_second"
+            android:defaultValue="0"
+            android:entries="@array/meditation_time_duration_seconds"
+            android:entryValues="@array/meditation_time_duration_second_values" />
         <ListPreference
             android:key="meditation_time_prepare"
             android:title="@string/meditation_time_prepare"
@@ -20,20 +32,20 @@
         <ListPreference
             android:key="meditation_music_begin"
             android:title="@string/meditation_music_begin"
-            android:defaultValue="bowl.mp3"
+            android:defaultValue="singbowl_basu.mp3"
             android:entries="@array/meditation_music_begins"
             android:entryValues="@array/meditation_music_begin_values" />
         <ListPreference
             android:key="meditation_music_end"
             android:title="@string/meditation_music_end"
-            android:defaultValue="bell.mp3"
+            android:defaultValue="singbowl_sakya.mp3"
             android:entries="@array/meditation_music_ends"
             android:entryValues="@array/meditation_music_end_values" />
 
         <CheckBoxPreference
             android:key="meditation_music_play_mode"
             android:title="@string/meditation_music_play_mode"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:summaryOff="@string/meditation_music_play_no_loop"
             android:summaryOn="@string/meditation_music_play_loop" />
     </PreferenceCategory>

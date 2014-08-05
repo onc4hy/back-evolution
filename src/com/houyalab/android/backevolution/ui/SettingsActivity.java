@@ -23,7 +23,9 @@ public class SettingsActivity extends PreferenceActivity implements
 
 		//setEditTextPrefSummary((EditTextPreference) findPreference("meditation_time_duration_custom"));
 		setListPrefSummary((ListPreference) findPreference("meditation_time_prepare"));
-		setListPrefSummary((ListPreference) findPreference("meditation_time_duration"));
+		setListPrefSummary((ListPreference) findPreference("meditation_time_duration_hour"));
+		setListPrefSummary((ListPreference) findPreference("meditation_time_duration_minute"));
+		setListPrefSummary((ListPreference) findPreference("meditation_time_duration_second"));
 		setListPrefSummary((ListPreference) findPreference("meditation_music_begin"));
 		setListPrefSummary((ListPreference) findPreference("meditation_music_end"));
 	}

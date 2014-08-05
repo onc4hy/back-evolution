@@ -47,7 +47,7 @@
         android:id="@+id/action_about"
         android:orderInCategory="190"
         android:title="@string/title_about"
-        android:showAsAction="never"/>
+        android:showAsAction="always"/>
 
     <item
         android:id="@+id/action_exit"

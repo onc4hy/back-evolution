@@ -72,6 +72,10 @@ public class ActivityBookVolumeDetail extends BaseActivity implements
 		} else if (view.getId() == R.id.rb_book_volume_detail_textsize_smaller) {
 			mTextSize = mTextSize - 1;
 			mTvVolumeContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+		} else if (view.getId() == R.id.iv_book_volume_detail_prev_screen) {
+			mTvVolumeContent.scrollBy(0,-50);
+		} else if (view.getId() == R.id.iv_book_volume_detail_next_screen) {
+			mTvVolumeContent.scrollBy(0,50);
 		}
 	}
 

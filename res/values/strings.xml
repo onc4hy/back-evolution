@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">发呆小器-I</string>
-    <string name="app_version">v 0.1</string>
+    <string name="app_version">版本: 0.1.1</string>
     <string name="title_meditation">发呆</string>
     <string name="title_meditation_settings">发呆设置</string>
     <string name="title_meditation_check">发呆回顾</string>
@@ -22,6 +22,9 @@
     <string name="meditation_time_setting">发呆时间设置</string>
     <string name="meditation_time_duration_value_mode">发呆持续时间取值模式</string>
     <string name="meditation_time_duration">发呆持续时间</string>
+    <string name="meditation_time_duration_hour">发呆持续时间:小时</string>
+    <string name="meditation_time_duration_minute">发呆持续时间:分钟</string>
+    <string name="meditation_time_duration_second">发呆持续时间:秒</string>
     <string name="meditation_time_duration_custom">发呆持续时间自定义长度</string>
     <string name="meditation_time_prepare">发呆预备时间</string>
     <string name="meditation_music_setting">发呆音乐设置</string>
@@ -46,6 +49,8 @@
     <string name="book_btn_textsize_default">默认字号</string>
     <string name="book_btn_textsize_greater">+ 增大字号</string>
     <string name="book_btn_textsize_smaller">- 缩小字号</string>
+    <string name="book_btn_prev_screen">上一屏</string>
+    <string name="book_btn_next_screen">下一屏</string>
     <string name="book_btn_collapse_all">全收</string>
     <string name="book_btn_expand_all">全展</string>
     <string name="book_volume_head_title">读书-详情内容</string>
@@ -63,8 +68,12 @@
     <string name="lbl_ok">确认</string>
     <string name="lbl_cancel">取消</string>
     <string name="lbl_exit_confirm_info">确认退出吗?</string>
+    <string name="lbl_meditation_plantime">计划发呆:</string>
+    <string name="lbl_meditation_infinite">持续</string>
+    <string name="lbl_begin_in">开始时间:</string>
+    <string name="lbl_end_in">结束时间:</string>
     <string name="lbl_minute">分钟</string>
     <string name="txt_about_title">关于发呆小器-I ...</string>
-    <string name="txt_about_body">v 0.1\nauthor:onc4hy</string>
+    <string name="txt_about_body">v 0.1.1\nauthor:onc4hy</string>
     
 </resources>

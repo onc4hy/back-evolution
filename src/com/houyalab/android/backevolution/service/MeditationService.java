@@ -74,7 +74,7 @@ public class MeditationService extends Service implements
 					@Override
 					public void run() {
 						try {
-							mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bowl);
+							mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.singbowl_basu);
 							//mPlayer.setDataSource(musicBeginPath);
 							mPlayer.setLooping(musicLoopMode);
 							mPlayer.setVolume(100,100);

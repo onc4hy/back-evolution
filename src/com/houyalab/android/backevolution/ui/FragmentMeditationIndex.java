@@ -175,15 +175,10 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	private void startMeditation() {
 		// startMeditationPrepareTimer();
-		// PrepareCountDownTimer prepareTimer = new
-		// PrepareCountDownTimer(3000,1000);
-		// prepareTimer.start();
-		startMeditationTimer();
-
-		Bundle extras = new Bundle();
-		extras.putInt("musicBeginResId", mMusicBeginResId);
-		extras.putBoolean("musicLoopMode", mMusicLoopMode);
-		startMeditationMusic(extras);
+		PrepareCountDownTimer prepareTimer = new
+		 PrepareCountDownTimer(3000,1000);
+		prepareTimer.start();
+		//startMeditationTimer();
 
 		/*
 		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
@@ -194,30 +189,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	private void startMeditationPrepareTimer() {
 		if (mMeditationTimePrepare > 0) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						mMeditationTimePrepareRest = mMeditationTimePrepare;
-						for (int i = 0; i < mMeditationTimePrepare; i++) {
-							/*
-							 * Message msgProgress = new Message();
-							 * msgProgress.what = MEDITATION_PREPARE_RUNING;
-							 * mHandler.sendMessage(msgProgress);
-							 */
-							if (mMeditationTimePrepareRest == 0) {
-								// startMeditationTimer();
-							}
-							mMeditationTimePrepareRest = mMeditationTimePrepareRest - 1;
-							Thread.sleep(1000);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
 		} else {
-			// startMeditationTimer();
 		}
 	}
 
@@ -493,13 +465,18 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 		@Override
 		public void onFinish() {
-			// startMeditationTimer();
+			//startMeditationTimer();
+			Bundle extras = new Bundle();
+			extras.putInt("musicBeginResId", mMusicBeginResId);
+			extras.putBoolean("musicLoopMode", mMusicLoopMode);
+			startMeditationMusic(extras);
+
 		}
 
 		@Override
 		public void onTick(long millisUntilFinished) {
 			mMeditationTimePrepareRest = (int) (millisUntilFinished / (1000 * 60));
-			mHandler.sendEmptyMessage(MEDITATION_PREPARE_RUNING);
+			//mHandler.sendEmptyMessage(MEDITATION_PREPARE_RUNING);
 		}
 
 	}

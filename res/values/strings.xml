@@ -2,12 +2,13 @@
 <resources>
 
     <string name="app_name">发呆小器-I</string>
-    <string name="app_version">版本: 0.1.1</string>
+    <string name="app_version">版本: 0.2.0</string>
     <string name="title_meditation">发呆</string>
     <string name="title_meditation_settings">发呆设置</string>
     <string name="title_meditation_check">发呆回顾</string>
     <string name="title_book">读经</string>
     <string name="title_evolution">演化</string>
+    <string name="title_prepare">预备倒计时</string>
     <string name="title_search">搜索</string>
     <string name="title_refresh">刷新</string>
     <string name="title_profile">个人中心</string>

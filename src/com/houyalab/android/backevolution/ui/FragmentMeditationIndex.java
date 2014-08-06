@@ -173,23 +173,38 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		}
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == -1) {
+			startMeditationTimer();
+
+			Bundle extras = new Bundle();
+			extras.putInt("musicBeginResId", mMusicBeginResId);
+			extras.putBoolean("musicLoopMode", mMusicLoopMode);
+			startMeditationMusic(extras);
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
 	private void startMeditation() {
-		// startMeditationPrepareTimer();
-		PrepareCountDownTimer prepareTimer = new
-		 PrepareCountDownTimer(3000,1000);
-		prepareTimer.start();
-		//startMeditationTimer();
-
-		/*
-		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
-		 * service.putExtras(extras); getActivity().startService(service);
-		 */
-
+		startMeditationPrepareTimer();
 	}
 
 	private void startMeditationPrepareTimer() {
+		Intent prepareIntent = new Intent(getActivity(),PrepareActivity.class);
 		if (mMeditationTimePrepare > 0) {
-		} else {
+			mMeditationTimePrepare = mMeditationTimePrepare * 1000;
+			Bundle extras = new Bundle();
+			extras.putInt("prepareTime",mMeditationTimePrepare);
+			prepareIntent.putExtras(extras);
+			startActivityForResult(prepareIntent,0);
+		}else {
+			startMeditationTimer();
+
+			Bundle extras = new Bundle();
+			extras.putInt("musicBeginResId", mMusicBeginResId);
+			extras.putBoolean("musicLoopMode", mMusicLoopMode);
+			startMeditationMusic(extras);
 		}
 	}
 
@@ -455,29 +470,5 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-	}
-
-	public class PrepareCountDownTimer extends CountDownTimer {
-
-		public PrepareCountDownTimer(long millisInFuture, long countDownInterval) {
-			super(millisInFuture, countDownInterval);
-		}
-
-		@Override
-		public void onFinish() {
-			//startMeditationTimer();
-			Bundle extras = new Bundle();
-			extras.putInt("musicBeginResId", mMusicBeginResId);
-			extras.putBoolean("musicLoopMode", mMusicLoopMode);
-			startMeditationMusic(extras);
-
-		}
-
-		@Override
-		public void onTick(long millisUntilFinished) {
-			mMeditationTimePrepareRest = (int) (millisUntilFinished / (1000 * 60));
-			//mHandler.sendEmptyMessage(MEDITATION_PREPARE_RUNING);
-		}
-
 	}
 }

@@ -2,9 +2,9 @@
 <item android:id="@android:id/background">
     <shape>
         <corners android:radius="5dip" />
-  <gradient android:startColor="#333333"
-            android:centerColor="#333333" android:centerY="0.75"
-            android:endColor="#333333" android:angle="270" />
+  <gradient android:startColor="#999999"
+            android:centerColor="#999999" android:centerY="0.75"
+            android:endColor="#999999" android:angle="270" />
     </shape>
 </item>
 <item android:id="@android:id/secondaryProgress">

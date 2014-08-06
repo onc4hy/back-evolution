@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.houyalab.android.backevolution"
     android:installLocation="preferExternal"
-    android:versionCode="2"
-    android:versionName="0.1.1" >
+    android:versionCode="3"
+    android:versionName="0.2.0" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -44,6 +44,11 @@
         <activity
             android:name=".ui.ActivityBookVolumeDetail"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.PrepareActivity"
+			android:theme="@android:style/Theme.Dialog"
+            android:label="@string/title_prepare" >
         </activity>
 
         <service

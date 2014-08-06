@@ -24,7 +24,7 @@
         <ListPreference
             android:key="meditation_time_prepare"
             android:title="@string/meditation_time_prepare"
-            android:defaultValue="5"
+            android:defaultValue="10"
             android:entries="@array/meditation_time_prepares"
             android:entryValues="@array/meditation_time_prepare_values" />
     </PreferenceCategory>

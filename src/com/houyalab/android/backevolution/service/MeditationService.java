@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -150,5 +151,55 @@ public class MeditationService extends Service implements
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {
+	}
+	
+	private void startMeditationMusic(Bundle extras) {
+		final int musicBeginResId = extras.getInt("musicBeginResId");
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+				}
+				mPlayer.release();
+				mPlayer = null;
+			}
+			mPlayer = new MediaPlayer();
+			mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mPlayer.setDataSource(
+					getApplicationContext(),
+					Uri.parse("android.resource://"
+							+ getPackageName() + "/"
+							+ musicBeginResId));
+			mPlayer.prepare();
+			//mPlayer.setLooping(mMusicLoopMode);
+			mPlayer.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void stopMeditationMusic(Bundle extras) {
+		final int musicEndResId = extras.getInt("musicEndResId");
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+				}
+				mPlayer.release();
+				mPlayer = null;
+			}
+			mPlayer = new MediaPlayer();
+			mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mPlayer.setDataSource(
+					getApplicationContext(),
+					Uri.parse("android.resource://"
+							+ getPackageName() + "/"
+							+ musicEndResId));
+			mPlayer.setLooping(false);
+			mPlayer.prepare();
+			mPlayer.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

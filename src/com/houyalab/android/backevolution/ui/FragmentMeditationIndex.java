@@ -75,7 +75,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	private Timer mTimer;
 	private TimerTask mMeditationTimerTask;
-	private TimerTask mMeditationTimerPrepareTask;
+	private Runnable mMeditationTimerPrepareTask;
 
 	private int mInProgress;
 	private String mInProgressString;
@@ -102,7 +102,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		// getMeditationSettings();
 		// mPlayer = new MediaPlayer();
 		mSdf = new SimpleDateFormat("HH:mm:ss");
-		mTimer = new Timer();
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -173,9 +172,9 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	}
 
 	private void startMeditation() {
-		//startMeditationPrepareTimer();
+		// startMeditationPrepareTimer();
 		startMeditationTimer();
-		
+
 		Bundle extras = new Bundle();
 		extras.putInt("musicBeginResId", mMusicBeginResId);
 		extras.putBoolean("musicLoopMode", mMusicPlayMode);
@@ -190,23 +189,30 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	private void startMeditationPrepareTimer() {
 		if (mMeditationTimePrepare > 0) {
-			mMeditationTimePrepareRest = mMeditationTimePrepare;
-			mMeditationTimerPrepareTask = new TimerTask() {
+			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					Message msgProgress = new Message();
-					msgProgress.what = MEDITATION_PREPARE_RUNING;
-					mHandler.sendMessage(msgProgress);
-					mMeditationTimePrepareRest = mMeditationTimePrepareRest - 1;
-					
-					if (mMeditationTimePrepareRest == 0) {
-						startMeditationTimer();
+					try {
+						mMeditationTimePrepareRest = mMeditationTimePrepare;
+						for (int i = 0; i < mMeditationTimePrepare; i++) {
+							/*
+							 * Message msgProgress = new Message();
+							 * msgProgress.what = MEDITATION_PREPARE_RUNING;
+							 * mHandler.sendMessage(msgProgress);
+							 */
+							if (mMeditationTimePrepareRest == 0) {
+								// startMeditationTimer();
+							}
+							mMeditationTimePrepareRest = mMeditationTimePrepareRest - 1;
+							Thread.sleep(1000);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
-			};
-			mTimer.schedule(mMeditationTimerPrepareTask, 0, 1000);
-		}else {
-			startMeditationTimer();
+			}).start();
+		} else {
+			// startMeditationTimer();
 		}
 	}
 
@@ -301,9 +307,10 @@ public class FragmentMeditationIndex extends BaseFragment implements
 				}
 			}
 		};
+		mTimer = new Timer();
 		mTimer.schedule(mMeditationTimerTask, 0, 1000);
-		
-		updateMeditationStatus("start");		
+
+		updateMeditationStatus("start");
 	}
 
 	private void stopMeditationTimer() {
@@ -336,15 +343,24 @@ public class FragmentMeditationIndex extends BaseFragment implements
 				} else {
 					formatDateString = "HH:mm:ss";
 				}
+				String planTime = "";
+				// planTime = DateUtil.formatDate(mMeditationTimeDuration *
+				// 1000,formatDateString);
+				if (mMeditationTimeDurationHour > 0) {
+					planTime = mMeditationTimeDurationHour + ":"
+							+ mMeditationTimeDurationMinute + ":"
+							+ mMeditationTimeDurationSecond;
+				} else {
+					planTime = mMeditationTimeDurationMinute + ":"
+							+ mMeditationTimeDurationSecond;
+				}
 				progMax = getResources().getString(
 						R.string.lbl_meditation_plantime)
-						+ " "
-						+ DateUtil.formatDate(mMeditationTimeDuration * 1000,
-								formatDateString);
+						+ " " + planTime;
 			}
 			progMax = progMax + "\n"
-					+ getResources().getString(R.string.lbl_begin_in)
-					+ " " + mSdf.format(mBaseMeditationTime);
+					+ getResources().getString(R.string.lbl_begin_in) + " "
+					+ mSdf.format(mBaseMeditationTime);
 			mTvProgMax.setVisibility(View.VISIBLE);
 			mTvProgMax.setText(progMax);
 

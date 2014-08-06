@@ -126,10 +126,6 @@ public class MainActivity extends BaseActivity implements ActionBar.TabListener 
 		 * startActivity(signoutIntent); return true; case R.id.action_signup:
 		 * return true; case R.id.action_signout: return true;
 		 */
-		case R.id.action_settings:
-			Intent settingsIntent = new Intent(this, SettingsActivity.class);
-			startActivityForResult(settingsIntent, 0);
-			return true;
 		case R.id.action_about:
 			DialogAbout dlgAbout = new DialogAbout(this);
 			dlgAbout.setTitle(getResources().getString(R.string.title_about));

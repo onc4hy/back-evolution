@@ -43,6 +43,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private int MEDITATION_BEGIN = 0;
 	private int MEDITATION_RUNING = 1;
 	private int MEDITATION_END = 2;
+	private int MEDITATION_PREPARE_RUNING = 3;
 
 	private RadioButton mRBtnMeditationSetting;
 	private RadioButton mRBtnMeditationDo;
@@ -64,6 +65,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private int mMeditationTimeDurationMinute;
 	private int mMeditationTimeDurationSecond;
 	private int mMeditationTimePrepare;
+	private int mMeditationTimePrepareRest;
 	private SharedPreferences mSharedPrefs;
 
 	private ProgressBar mPbMeditationInfo;
@@ -73,6 +75,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	private Timer mTimer;
 	private TimerTask mMeditationTimerTask;
+	private TimerTask mMeditationTimerPrepareTask;
 
 	private int mInProgress;
 	private String mInProgressString;
@@ -99,6 +102,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		// getMeditationSettings();
 		// mPlayer = new MediaPlayer();
 		mSdf = new SimpleDateFormat("HH:mm:ss");
+		mTimer = new Timer();
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -108,6 +112,10 @@ public class FragmentMeditationIndex extends BaseFragment implements
 				}
 				if (msg.what == MEDITATION_END) {
 					updateMeditationStatus("stop");
+				}
+				if (msg.what == MEDITATION_PREPARE_RUNING) {
+					mTvProgCur.setVisibility(View.VISIBLE);
+					mTvProgCur.setText(mMeditationTimePrepareRest);
 				}
 			}
 		};
@@ -165,20 +173,41 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	}
 
 	private void startMeditation() {
+		//startMeditationPrepareTimer();
+		startMeditationTimer();
+		
 		Bundle extras = new Bundle();
 		extras.putInt("musicBeginResId", mMusicBeginResId);
 		extras.putBoolean("musicLoopMode", mMusicPlayMode);
 		startMeditationMusic(extras);
 
-		mBaseEllapsed = System.currentTimeMillis();
-		mBaseMeditationTime = new Date();
-		startMeditationTimer();
 		/*
 		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
 		 * service.putExtras(extras); getActivity().startService(service);
 		 */
 
-		updateMeditationStatus("start");
+	}
+
+	private void startMeditationPrepareTimer() {
+		if (mMeditationTimePrepare > 0) {
+			mMeditationTimePrepareRest = mMeditationTimePrepare;
+			mMeditationTimerPrepareTask = new TimerTask() {
+				@Override
+				public void run() {
+					Message msgProgress = new Message();
+					msgProgress.what = MEDITATION_PREPARE_RUNING;
+					mHandler.sendMessage(msgProgress);
+					mMeditationTimePrepareRest = mMeditationTimePrepareRest - 1;
+					
+					if (mMeditationTimePrepareRest == 0) {
+						startMeditationTimer();
+					}
+				}
+			};
+			mTimer.schedule(mMeditationTimerPrepareTask, 0, 1000);
+		}else {
+			startMeditationTimer();
+		}
 	}
 
 	private void stopMeditation() {
@@ -193,6 +222,95 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
 		 * service.putExtras(extras); getActivity().stopService(service);
 		 */
+	}
+
+	private void startMeditationMusic(Bundle extras) {
+		final int musicBeginResId = extras.getInt("musicBeginResId");
+		try {
+			// mPlayer.setDataSource(musicBeginPath);
+			mPlayer = MediaPlayer.create(getActivity(), musicBeginResId);
+			mPlayer.setLooping(mMusicPlayMode);
+			mPlayer.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void stopMeditationMusic(Bundle extras) {
+		final int musicEndResId = extras.getInt("musicEndResId");
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+					mPlayer.release();
+					mPlayer = null;
+				}
+			}
+			mPlayer = MediaPlayer.create(getActivity(), musicEndResId);
+			mPlayer.setLooping(false);
+			mPlayer.start();
+			mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+				@Override
+				public void onCompletion(MediaPlayer arg0) {
+					mPlayer.stop();
+					mPlayer.release();
+					mPlayer = null;
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void startMeditationTimer() {
+		mBaseEllapsed = System.currentTimeMillis();
+		mBaseMeditationTime = new Date();
+		mMeditationTimerTask = new TimerTask() {
+			@Override
+			public void run() {
+				if (mMeditationTimeDuration != 0) {
+					mPlanedEllapsed = mMeditationTimeDuration * 1000;
+					mCurrentEllapsed = System.currentTimeMillis();
+					mDuringEllapsed = mCurrentEllapsed - mBaseEllapsed;
+					mRemainEllapsed = mPlanedEllapsed - mDuringEllapsed;
+					mInProgress = Long.valueOf(
+							(mDuringEllapsed * 100l) / mPlanedEllapsed)
+							.intValue();
+					String formatDateString = "";
+					if (mMeditationTimeDurationHour > 0) {
+						formatDateString = "HH:mm:ss";
+					} else {
+						formatDateString = "mm:ss";
+					}
+					mInProgressString = DateUtil.formatDate(mRemainEllapsed,
+							formatDateString);
+					Message msgProgress = new Message();
+					msgProgress.what = MEDITATION_RUNING;
+					mHandler.sendMessage(msgProgress);
+					if (mDuringEllapsed >= mPlanedEllapsed) {
+						msgProgress.what = MEDITATION_END;
+						// mHandler.sendMessage(msgProgress);
+
+						Bundle extras = new Bundle();
+						extras.putInt("musicEndResId", mMusicEndResId);
+						stopMeditationMusic(extras);
+						stopMeditationTimer();
+					}
+				} else {
+
+				}
+			}
+		};
+		mTimer.schedule(mMeditationTimerTask, 0, 1000);
+		
+		updateMeditationStatus("start");		
+	}
+
+	private void stopMeditationTimer() {
+		if (mTimer != null) {
+			mTimer.cancel();
+			mTimer = null;
+		}
 	}
 
 	private void updateMeditationStatus(String statusCode) {
@@ -241,92 +359,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			mTvProgMax.setVisibility(View.INVISIBLE);
 
 			mEndMeditationTime = new Date();
-		}
-	}
-
-	private void startMeditationMusic(Bundle extras) {
-		final int musicBeginResId = extras.getInt("musicBeginResId");
-		try {
-			// mPlayer.setDataSource(musicBeginPath);
-			mPlayer = MediaPlayer.create(getActivity(), musicBeginResId);
-			mPlayer.setLooping(mMusicPlayMode);
-			mPlayer.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void stopMeditationMusic(Bundle extras) {
-		final int musicEndResId = extras.getInt("musicEndResId");
-		try {
-			if (mPlayer != null) {
-				if (mPlayer.isPlaying()) {
-					mPlayer.stop();
-					mPlayer.release();
-					mPlayer = null;
-				}
-			}
-			mPlayer = MediaPlayer.create(getActivity(), musicEndResId);
-			mPlayer.setLooping(false);
-			mPlayer.start();
-			mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-				@Override
-				public void onCompletion(MediaPlayer arg0) {
-					mPlayer.stop();
-					mPlayer.release();
-					mPlayer = null;
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void startMeditationTimer() {
-		mTimer = new Timer();
-		mMeditationTimerTask = new TimerTask() {
-			@Override
-			public void run() {
-				if (mMeditationTimeDuration != 0) {
-					mPlanedEllapsed = mMeditationTimeDuration * 1000;
-					mCurrentEllapsed = System.currentTimeMillis();
-					mDuringEllapsed = mCurrentEllapsed - mBaseEllapsed;
-					mRemainEllapsed = mPlanedEllapsed - mDuringEllapsed;
-					mInProgress = Long.valueOf(
-							(mDuringEllapsed * 100l) / mPlanedEllapsed)
-							.intValue();
-					String formatDateString = "";
-					if (mMeditationTimeDurationHour > 0) {
-						formatDateString = "HH:mm:ss";
-					} else {
-						formatDateString = "mm:ss";
-					}
-					mInProgressString = DateUtil.formatDate(mRemainEllapsed,
-							formatDateString);
-					Message msgProgress = new Message();
-					msgProgress.what = MEDITATION_RUNING;
-					mHandler.sendMessage(msgProgress);
-					if (mDuringEllapsed >= mPlanedEllapsed) {
-						msgProgress.what = MEDITATION_END;
-						// mHandler.sendMessage(msgProgress);
-
-						Bundle extras = new Bundle();
-						extras.putInt("musicEndResId", mMusicEndResId);
-						stopMeditationMusic(extras);
-						stopMeditationTimer();
-					}
-				} else {
-
-				}
-			}
-		};
-		mTimer.schedule(mMeditationTimerTask, 0, 1000);
-	}
-
-	private void stopMeditationTimer() {
-		if (mTimer != null) {
-			mTimer.cancel();
-			mTimer = null;
 		}
 	}
 

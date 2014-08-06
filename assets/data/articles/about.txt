@@ -3,7 +3,8 @@
 版本:0.1.1
 发布时间:2014-08
 
-发布人: 后崖 [onc4hy@126.com]
+发布人: 后崖
+电子邮箱: onc4hy@126.com
 源代码访问地址: https://github.com/onc4hy/back-evolution.git
 ------------
 

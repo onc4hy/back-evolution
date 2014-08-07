@@ -10,7 +10,7 @@ public class DateUtil {
 	public static String formatDate(Date date,String formatString) {
 		String result = "";
 		SimpleDateFormat sdf = new SimpleDateFormat(formatString,Locale.getDefault());
-		sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT-0:00"));
 		result = sdf.format(date);
 		return result;
 	}
@@ -20,7 +20,7 @@ public class DateUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(milliseconds);
 		SimpleDateFormat sdf = new SimpleDateFormat(formatString,Locale.getDefault());
-		sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT-0:00"));
 		result = sdf.format(cal.getTime());
 		return result;
 	}

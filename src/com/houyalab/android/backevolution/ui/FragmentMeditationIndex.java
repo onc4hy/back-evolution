@@ -294,7 +294,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 						stopMeditationTimer();
 					}
 				} else {
-
+					mInProgressString = getResources().getString(R.string.lbl_meditation_infinite);
 				}
 			}
 		};
@@ -335,16 +335,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 				String planTime = "";
 				planTime = DateUtil.formatDate(mMeditationTimeDuration *
 				 1000,formatDateString);
-				/*
-				if (mMeditationTimeDurationHour > 0) {
-					planTime = mMeditationTimeDurationHour + ":"
-							+ mMeditationTimeDurationMinute + ":"
-							+ mMeditationTimeDurationSecond;
-				} else {
-					planTime = mMeditationTimeDurationMinute + ":"
-							+ mMeditationTimeDurationSecond;
-				}
-				 */
 				progMax = getResources().getString(
 						R.string.lbl_meditation_plantime)
 						+ " " + planTime;

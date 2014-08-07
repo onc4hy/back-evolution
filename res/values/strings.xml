@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">发呆小器-I</string>
-    <string name="app_version">版本: 0.2.0</string>
+    <string name="app_version">版本: 0.2.1</string>
     <string name="title_meditation">发呆</string>
     <string name="title_meditation_settings">发呆设置</string>
     <string name="title_meditation_check">发呆回顾</string>

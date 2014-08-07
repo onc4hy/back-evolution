@@ -74,7 +74,10 @@
     <string name="lbl_begin_in">开始时间:</string>
     <string name="lbl_end_in">结束时间:</string>
     <string name="lbl_minute">分钟</string>
-    <string name="txt_about_title">关于发呆小器-I ...</string>
+    <string name="txt_about_author">发布人: 后崖</string>
+    <string name="txt_about_pubdate">发布时间:2014-08</string>
+    <string name="txt_about_email">电子邮箱: onc4hy@126.com</string>
+    <string name="txt_about_source">源代码访问地址: https://github.com/onc4hy/back-evolution.git</string>
     <string name="txt_about_body">v 0.1.1\nauthor:onc4hy</string>
     
 </resources>

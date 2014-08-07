@@ -58,11 +58,12 @@
             android:id="@+id/pb_meditation_info"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="4dip"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:gravity="center"
 			android:layout_alignParentBottom="true"
+			android:paddingBottom="3dip"
             android:max="100"
             android:progress="0" />
 			
@@ -94,8 +95,8 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_above="@id/ll_meditation_infobar_intro2"
-			android:layout_marginTop="8dip"
-			android:layout_marginBottom="8dip"
+			android:layout_marginTop="6dip"
+			android:layout_marginBottom="6dip"
             android:orientation="horizontal" >
 
             <TextView

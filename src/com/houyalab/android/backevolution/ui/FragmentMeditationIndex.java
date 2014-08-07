@@ -175,15 +175,12 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == -1) {
-			startMeditationTimer();
-
-			Bundle extras = new Bundle();
-			extras.putInt("musicBeginResId", mMusicBeginResId);
-			extras.putBoolean("musicLoopMode", mMusicLoopMode);
-			startMeditationMusic(extras);
-		}
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (resultCode == -1) {
+			startMeditationMusic();
+			startMeditationTimer();
+		}
 	}
 
 	private void startMeditation() {
@@ -199,19 +196,13 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			prepareIntent.putExtras(extras);
 			startActivityForResult(prepareIntent,0);
 		}else {
+			startMeditationMusic();
 			startMeditationTimer();
-
-			Bundle extras = new Bundle();
-			extras.putInt("musicBeginResId", mMusicBeginResId);
-			extras.putBoolean("musicLoopMode", mMusicLoopMode);
-			startMeditationMusic(extras);
 		}
 	}
 
 	private void stopMeditation() {
-		Bundle extras = new Bundle();
-		extras.putInt("musicEndResId", mMusicEndResId);
-		stopMeditationMusic(extras);
+		stopMeditationMusic();
 
 		stopMeditationTimer();
 
@@ -222,8 +213,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		 */
 	}
 
-	private void startMeditationMusic(Bundle extras) {
-		final int musicBeginResId = extras.getInt("musicBeginResId");
+	private void startMeditationMusic() {
 		try {
 			if (mPlayer != null) {
 				if (mPlayer.isPlaying()) {
@@ -238,7 +228,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 					getActivity().getApplicationContext(),
 					Uri.parse("android.resource://"
 							+ getActivity().getPackageName() + "/"
-							+ musicBeginResId));
+							+ mMusicBeginResId));
 			mPlayer.prepare();
 			mPlayer.setLooping(mMusicLoopMode);
 			mPlayer.start();
@@ -247,8 +237,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		}
 	}
 
-	private void stopMeditationMusic(Bundle extras) {
-		final int musicEndResId = extras.getInt("musicEndResId");
+	private void stopMeditationMusic() {
 		try {
 			if (mPlayer != null) {
 				if (mPlayer.isPlaying()) {
@@ -263,7 +252,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 					getActivity().getApplicationContext(),
 					Uri.parse("android.resource://"
 							+ getActivity().getPackageName() + "/"
-							+ musicEndResId));
+							+ mMusicEndResId));
 			mPlayer.setLooping(false);
 			mPlayer.prepare();
 			mPlayer.start();
@@ -301,9 +290,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 						msgProgress.what = MEDITATION_END;
 						// mHandler.sendMessage(msgProgress);
 
-						Bundle extras = new Bundle();
-						extras.putInt("musicEndResId", mMusicEndResId);
-						stopMeditationMusic(extras);
+						stopMeditationMusic();
 						stopMeditationTimer();
 					}
 				} else {

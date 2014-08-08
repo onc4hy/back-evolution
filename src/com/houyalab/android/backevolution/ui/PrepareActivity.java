@@ -36,7 +36,7 @@ public class PrepareActivity extends Activity {
 
 			@Override
 			public void onFinish() {
-				PrepareActivity.this.setResult(-1);
+				PrepareActivity.this.setResult(HelperUtil.STATUS_DO_MEDITATION);
 				PrepareActivity.this.finish();
 			}
 		};

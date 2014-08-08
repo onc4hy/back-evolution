@@ -119,7 +119,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 		getMeditationSettings();
 		
-		mPlayer = new MediaPlayer();
 		mSdf = new SimpleDateFormat("HH:mm:ss");
 		mHandler = new Handler() {
 			@Override
@@ -196,16 +195,16 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode == -1) {
+		if (resultCode == HelperUtil.STATUS_DO_MEDITATION) {
 			startMeditationMusic();
 			startMeditationTimer();
 		}
 	}
 
 	private void startMeditation() {
+		startMeditationPrepareTimer();
 		updateMeditationStatus("start");
 		
-		startMeditationPrepareTimer();
 	}
 
 	private void startMeditationPrepareTimer() {
@@ -228,11 +227,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 		stopMeditationMusic();
 
 		stopMeditationTimer();
-
-		/*
-		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
-		 * service.putExtras(extras); getActivity().stopService(service);
-		 */
 	}
 
 	private void startMeditationMusic() {

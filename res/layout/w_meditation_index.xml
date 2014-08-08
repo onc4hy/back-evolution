@@ -15,7 +15,8 @@
         android:layout_height="300dip" >
         <ImageView
 			android:id="@+id/iv_meditation_bg"
-			android:paddingTop="60dip"
+			android:paddingTop="30dip"
+			android:paddingBottom="30dip"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/splash" />

@@ -16,6 +16,8 @@ public class HelperUtil {
 	public static String DEFAULT_MEDITATION_BG = "bamboo";
 	public static float DEFAULT_TEXT_SIZE = 22;
 
+	public static int STATUS_DO_MEDITATION = 9;
+	
 	public static String MESSAGE_MEDITATION_START = "meditation_start";
 	public static String MESSAGE_MEDITATION_RUNNING = "meditation_running";
 	public static String MESSAGE_MEDITATION_STOP = "meditation_stop";

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.houyalab.android.backevolution"
     android:installLocation="preferExternal"
-    android:versionCode="4"
-    android:versionName="0.2.1" >
+    android:versionCode="5"
+    android:versionName="0.2.2" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -50,24 +50,6 @@
 			android:theme="@android:style/Theme.Dialog"
             android:label="@string/title_prepare" >
         </activity>
-
-        <service
-            android:name=".service.MeditationService"
-            android:enabled="true" >
-			<intent-filter>
-                <action android:name="com.houyalab.android.backevolution.meditationservice" />
-			</intent-filter>
-        </service>
-		
-        <receiver android:name=".receiver.MessageReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BATTERY_CHANGED" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="meditation_start" />
-                <action android:name="meditation_running" />
-                <action android:name="meditation_stop" />
-            </intent-filter>
-        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

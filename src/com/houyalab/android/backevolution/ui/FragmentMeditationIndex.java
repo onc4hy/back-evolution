@@ -11,6 +11,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Shader.TileMode;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -28,8 +32,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -68,6 +75,8 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private int mMeditationTimeDurationSecond;
 	private int mMeditationTimePrepare;
 	private int mMeditationTimePrepareRest;
+	private String mMeditationBg;
+	private int mMeditationBgResId;
 	private SharedPreferences mSharedPrefs;
 
 	private ProgressBar mPbMeditationInfo;
@@ -91,6 +100,12 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	private Date mDuringMeditationTime;
 	private Date mRemainMeditationTime;
 	private SimpleDateFormat mSdf;
+	private String mProgMax;
+	private String mProgCur;
+
+	private ImageView mImageBg;
+	private Bitmap mBmpBg;
+	private BitmapDrawable mDrawBg;
 
 	public FragmentMeditationIndex() {
 		mMeditationRuningState = false;
@@ -101,6 +116,8 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		getMeditationSettings();
 		
 		mPlayer = new MediaPlayer();
 		mSdf = new SimpleDateFormat("HH:mm:ss");
@@ -108,15 +125,16 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == MEDITATION_RUNING) {
+					mPbMeditationInfo.setVisibility(View.VISIBLE);
+					mTvProgMax.setVisibility(View.VISIBLE);
+					mTvProgCur.setVisibility(View.VISIBLE);
+
 					mPbMeditationInfo.setProgress(mInProgress);
 					mTvProgCur.setText(mInProgressString);
+					mTvProgMax.setText(mProgMax);
 				}
 				if (msg.what == MEDITATION_END) {
 					updateMeditationStatus("stop");
-				}
-				if (msg.what == MEDITATION_PREPARE_RUNING) {
-					mTvProgCur.setVisibility(View.VISIBLE);
-					mTvProgCur.setText(mMeditationTimePrepareRest);
 				}
 			}
 		};
@@ -135,8 +153,6 @@ public class FragmentMeditationIndex extends BaseFragment implements
 				.findViewById(R.id.rb_meditation_settings);
 		mRBtnMeditationDo = (RadioButton) rootView
 				.findViewById(R.id.rb_meditation_do);
-		// mRBtnMeditationCheck = (RadioButton) rootView
-		// .findViewById(R.id.rb_meditation_check);
 		mTvProgCur = (TextView) rootView
 				.findViewById(R.id.tv_meditation_prog_cur);
 		mTvProgMax = (TextView) rootView
@@ -144,10 +160,13 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 		mRBtnMeditationSetting.setOnClickListener(this);
 		mRBtnMeditationDo.setOnClickListener(this);
-		// mRBtnMeditationCheck.setOnClickListener(this);
 
 		mMeditationRuningState = false;
 		mRBtnMeditationDo.setText(R.string.meditation_btn_start);
+
+		mImageBg = (ImageView) rootView.findViewById(
+				R.id.iv_meditation_bg);
+		mImageBg.setImageResource(mMeditationBgResId);
 
 		return rootView;
 	}
@@ -176,7 +195,7 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		if (resultCode == -1) {
 			startMeditationMusic();
 			startMeditationTimer();
@@ -184,29 +203,32 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	}
 
 	private void startMeditation() {
+		updateMeditationStatus("start");
+		
 		startMeditationPrepareTimer();
 	}
 
 	private void startMeditationPrepareTimer() {
-		Intent prepareIntent = new Intent(getActivity(),PrepareActivity.class);
+		Intent prepareIntent = new Intent(getActivity(), PrepareActivity.class);
 		if (mMeditationTimePrepare > 0) {
 			mMeditationTimePrepare = mMeditationTimePrepare * 1000;
 			Bundle extras = new Bundle();
-			extras.putInt("prepareTime",mMeditationTimePrepare);
+			extras.putInt("prepareTime", mMeditationTimePrepare);
 			prepareIntent.putExtras(extras);
-			startActivityForResult(prepareIntent,0);
-		}else {
+			startActivityForResult(prepareIntent, 0);
+		} else {
 			startMeditationMusic();
 			startMeditationTimer();
 		}
 	}
 
 	private void stopMeditation() {
+		updateMeditationStatus("stop");
+		
 		stopMeditationMusic();
 
 		stopMeditationTimer();
 
-		updateMeditationStatus("stop");
 		/*
 		 * Intent service = new Intent(HelperUtil.MEDITATION_SERVICE);
 		 * service.putExtras(extras); getActivity().stopService(service);
@@ -262,6 +284,8 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	}
 
 	private void startMeditationTimer() {
+		mImageBg.setImageResource(mMeditationBgResId);
+
 		mBaseEllapsed = System.currentTimeMillis();
 		mBaseMeditationTime = new Date();
 		mMeditationTimerTask = new TimerTask() {
@@ -294,14 +318,13 @@ public class FragmentMeditationIndex extends BaseFragment implements
 						stopMeditationTimer();
 					}
 				} else {
-					mInProgressString = getResources().getString(R.string.lbl_meditation_infinite);
+					mInProgressString = getResources().getString(
+							R.string.lbl_meditation_infinite);
 				}
 			}
 		};
 		mTimer = new Timer();
 		mTimer.schedule(mMeditationTimerTask, 0, 1000);
-
-		updateMeditationStatus("start");
 	}
 
 	private void stopMeditationTimer() {
@@ -318,12 +341,26 @@ public class FragmentMeditationIndex extends BaseFragment implements
 
 			mPbMeditationInfo.setBackgroundResource(R.drawable.progressbar_bg);
 			mPbMeditationInfo.setVisibility(View.VISIBLE);
-
 			mTvProgCur.setVisibility(View.VISIBLE);
-			mTvProgCur.setText("");
-			String progMax = "";
+
 			if (mMeditationTimeDuration == 0) {
-				progMax = getResources().getString(
+				mProgCur = getResources().getString(
+						R.string.lbl_meditation_infinite);
+			} else {
+				mPlanedEllapsed = mMeditationTimeDuration * 1000;
+				String formatDateString = "";
+				if (mMeditationTimeDurationHour > 0) {
+					formatDateString = "HH:mm:ss";
+				} else {
+					formatDateString = "mm:ss";
+				}
+				mProgCur = DateUtil.formatDate(mPlanedEllapsed,
+						formatDateString);
+			}
+			mTvProgCur.setText(mProgCur);
+			mProgMax = "";
+			if (mMeditationTimeDuration == 0) {
+				mProgMax = getResources().getString(
 						R.string.lbl_meditation_infinite);
 			} else {
 				String formatDateString = "";
@@ -333,17 +370,17 @@ public class FragmentMeditationIndex extends BaseFragment implements
 					formatDateString = "mm:ss";
 				}
 				String planTime = "";
-				planTime = DateUtil.formatDate(mMeditationTimeDuration *
-				 1000,formatDateString);
-				progMax = getResources().getString(
+				planTime = DateUtil.formatDate(mMeditationTimeDuration * 1000,
+						formatDateString);
+				mProgMax = getResources().getString(
 						R.string.lbl_meditation_plantime)
 						+ " " + planTime;
 			}
-			progMax = progMax + "\n"
+			mProgMax = mProgMax + "\n"
 					+ getResources().getString(R.string.lbl_begin_in) + " "
 					+ mSdf.format(mBaseMeditationTime);
 			mTvProgMax.setVisibility(View.VISIBLE);
-			mTvProgMax.setText(progMax);
+			mTvProgMax.setText(mProgMax);
 
 		} else if (statusCode.equalsIgnoreCase("stop")) {
 			mMeditationRuningState = false;
@@ -381,6 +418,10 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			mMusicBeginResId = R.raw.singbowl_sakya;
 		} else if (mMusicBeginName.equalsIgnoreCase("woodblock.mp3")) {
 			mMusicBeginResId = R.raw.woodblock;
+		} else if (mMusicBeginName.equalsIgnoreCase("amitabha.mp3")) {
+			mMusicBeginResId = R.raw.amitabha;
+		} else if (mMusicBeginName.equalsIgnoreCase("amitabha_heart.mp3")) {
+			mMusicBeginResId = R.raw.amitabha_heart;
 		} else {
 			mMusicBeginResId = R.raw.singbowl_basu;
 		}
@@ -391,6 +432,10 @@ public class FragmentMeditationIndex extends BaseFragment implements
 			mMusicEndResId = R.raw.singbowl_sakya;
 		} else if (mMusicEndName.equalsIgnoreCase("woodblock.mp3")) {
 			mMusicEndResId = R.raw.woodblock;
+		} else if (mMusicEndName.equalsIgnoreCase("amitabha.mp3")) {
+			mMusicEndResId = R.raw.amitabha;
+		} else if (mMusicEndName.equalsIgnoreCase("amitabha_heart.mp3")) {
+			mMusicEndResId = R.raw.amitabha_heart;
 		} else {
 			mMusicEndResId = R.raw.singbowl_basu;
 		}
@@ -429,6 +474,17 @@ public class FragmentMeditationIndex extends BaseFragment implements
 					"meditation_time_prepare",
 					HelperUtil.DEFAULT_MEDITATION_TIME_PREPARE));
 		}
+
+		if (mSharedPrefs.contains("meditation_bg")) {
+			mMeditationBg = mSharedPrefs.getString("meditation_bg",
+					HelperUtil.DEFAULT_MEDITATION_BG);
+			if (mMeditationBg.equalsIgnoreCase("bamboo")) {
+				mMeditationBgResId = R.drawable.splash;
+			} else if (mMeditationBg.equalsIgnoreCase("amitabha")) {
+				mMeditationBgResId = R.drawable.amitabha;
+			}
+		}
+
 	}
 
 	@Override
@@ -448,4 +504,26 @@ public class FragmentMeditationIndex extends BaseFragment implements
 	public void onResume() {
 		super.onResume();
 	}
+
+	@Override
+	public void onDestroy() {
+		try {
+			if (mPlayer != null) {
+				if (mPlayer.isPlaying()) {
+					mPlayer.stop();
+				}
+				mPlayer.release();
+				mPlayer = null;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		super.onDestroy();
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+	}
+	
 }

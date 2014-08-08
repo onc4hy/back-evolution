@@ -13,6 +13,7 @@ public class HelperUtil {
 	public static String DEFAULT_MEDITATION_TIME_DURATION_MINUTE = "2";
 	public static String DEFAULT_MEDITATION_TIME_DURATION_SECOND = "0";
 	public static String DEFAULT_MEDITATION_TIME_PREPARE = "3";
+	public static String DEFAULT_MEDITATION_BG = "bamboo";
 	public static float DEFAULT_TEXT_SIZE = 22;
 
 	public static String MESSAGE_MEDITATION_START = "meditation_start";

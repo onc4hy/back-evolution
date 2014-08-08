@@ -21,7 +21,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
 
-		//setEditTextPrefSummary((EditTextPreference) findPreference("meditation_time_duration_custom"));
+		setListPrefSummary((ListPreference) findPreference("meditation_bg"));
 		setListPrefSummary((ListPreference) findPreference("meditation_time_prepare"));
 		setListPrefSummary((ListPreference) findPreference("meditation_time_duration_hour"));
 		setListPrefSummary((ListPreference) findPreference("meditation_time_duration_minute"));

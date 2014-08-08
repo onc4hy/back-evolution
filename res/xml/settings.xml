@@ -2,6 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_meditation_settings" >
 
+    <PreferenceCategory android:title="@string/meditation_bg_setting" >
+        <ListPreference
+            android:key="meditation_bg"
+            android:title="@string/meditation_bg"
+            android:defaultValue="bamboo"
+            android:entries="@array/meditation_bgs"
+            android:entryValues="@array/meditation_bg_values" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/meditation_time_setting" >
         <ListPreference
             android:key="meditation_time_duration_hour"
@@ -24,7 +32,7 @@
         <ListPreference
             android:key="meditation_time_prepare"
             android:title="@string/meditation_time_prepare"
-            android:defaultValue="10"
+            android:defaultValue="3"
             android:entries="@array/meditation_time_prepares"
             android:entryValues="@array/meditation_time_prepare_values" />
     </PreferenceCategory>
@@ -45,9 +53,9 @@
         <CheckBoxPreference
             android:key="meditation_music_play_mode"
             android:title="@string/meditation_music_play_mode"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:summaryOff="@string/meditation_music_play_no_loop"
             android:summaryOn="@string/meditation_music_play_loop" />
     </PreferenceCategory>
-
+        
 </PreferenceScreen>
